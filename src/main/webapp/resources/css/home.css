@@ -1,0 +1,159 @@
+body{
+	color: black;
+}
+.col-but{
+    padding-left: 25%;
+}
+.taxi-background{
+    padding-top: 13%;
+	background: url(../img/taxi-background4-min3.jpg) repeat;
+            
+}
+.taxi-background .container{
+     padding-bottom: 4%;
+}
+.big-font{
+	font-size: 50px;
+	font-weight: 700;
+	color: black;
+	text-align: center;
+	opacity: 1.0;
+}
+
+.row .middle-left{
+    font-size: 32px;
+    margin-top: 2%; 
+    padding-bottom: 3%;
+    text-align: left; 
+}
+.biggest-text{
+	font-size: 80px;
+}
+.colomns-padd div{
+	padding-top: 5%;
+}
+h2 + .divider{
+	margin-top: 3%;
+}
+.divider-default {
+    background: linear-gradient(to right, #fdd55b 20%, #ff654e 110%);
+}
+.divider {
+    display: inline-block;
+    border: 0;
+    font-size: 0;
+    line-height: 0;
+    height: 3px;
+    max-width: 100px;
+    width: 100%;
+    margin-left: 46%;
+}
+.box-header h4{
+	margin-left: 21%;
+}
+.box-info .box-header{
+	color:red;
+	padding-top: 15px;
+    padding-bottom: 15px;
+}
+.bg-grey{
+	background-color: #EEEDED;
+}
+.img-wrapper{
+	padding-top: 8%;
+}
+.questions{
+	padding-top:25%;
+	padding-left: 5%;
+}
+.img-wrapper{
+	padding-bottom: 5%;
+}
+
+.box-image img{
+	width: 210px;
+	height: 70px;
+}
+
+
+
+
+/*FOOTER*/
+.context-dark, .bg-gray-dark, .bg-primary {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.footer-classic a, .footer-classic a:focus, .footer-classic a:active {
+    color: #ffffff;
+}
+.nav-list li {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.nav-list li a:hover:before {
+    margin-left: 0;
+    opacity: 1;
+    visibility: visible;
+}
+
+.social-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 23px;
+    font: 900 13px/1 "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+}
+.social-container .col {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.context-dark, .bg-gray-dark, .bg-primary {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.footer-classic a, .footer-classic a:focus, .footer-classic a:active {
+    color: #ffffff;
+}
+.nav-list li {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.nav-list li a:hover:before {
+    margin-left: 0;
+    opacity: 1;
+    visibility: visible;
+}
+
+.social-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 23px;
+    font: 900 13px/1 "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+}
+.social-container .col {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.form-label{
+    color:black;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.button-wrapper button{
+    position: relative;
+    width: 30%;
+}
+.form-check-label{
+    color: black;
+    font-size: 18px;
+    font-weight: 900;
+}

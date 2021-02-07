@@ -107,6 +107,7 @@ public class PaymentDao implements AbstractDao<Long, Payment> {
     @Override
     public boolean add(Payment entity) throws DaoException {
         try (Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_ADD_PAYMENT)) {
+            System.out.println("CONNECTION AC : "+connection.getAutoCommit());
             preparedStatement.setLong(1, entity.getRide().getId());
             preparedStatement.setLong(2, entity.getPaymentType().ordinal()+1);
             preparedStatement.setDouble(3, entity.getPrice());

@@ -5,7 +5,6 @@ import com.epam.jwd.command.CommandResult;
 import com.epam.jwd.domain.impl.BankCard;
 import com.epam.jwd.domain.impl.Client;
 import com.epam.jwd.exception.FactoryException;
-import com.epam.jwd.exception.ServiceException;
 import com.epam.jwd.exception.ValidationException;
 import com.epam.jwd.factory.impl.BankCardFactory;
 import com.epam.jwd.service.impl.ClientServiceImpl;
@@ -17,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 public class AddBankCardCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest servletRequest) {
-        CommandResult commandResult = new CommandResult("client?command=to_add_bank_card", CommandResult.ResponseType.REDIRECT);
+        CommandResult commandResult = new CommandResult("client?command=to_client_home", CommandResult.ResponseType.REDIRECT);
         commandResult.addAttribute("message", "successful");
         try {
             ClientServiceImpl.getInstance().addBankCard(parseBankCard(servletRequest));

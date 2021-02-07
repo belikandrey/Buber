@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: andreybelik
-  Date: 23.01.21
-  Time: 19:38
+  Date: 7.02.21
+  Time: 17:29
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" isELIgnored="false" %>
@@ -15,18 +15,61 @@
 <fmt:setBundle basename="message"/>
 <html>
 <head>
-    <title><fmt:message key="addCar"/> </title>
+    <title>Buber</title>
 </head>
 <body>
-<jsp:include page="header.jsp"></jsp:include>
-<p><fmt:message key="enterInfo"/> : </p>
-<form method="post" action="driver?command=add_car">
-    <p><fmt:message key="carBrand"/> : <input name="carBrand"></p>
-    <p><fmt:message key="carModel"/> : <input name="carModel"></p>
-    <p><fmt:message key="carNumber"/> : <input name="carNumber"></p>
-    <p><fmt:message key="carColor"/> : <input name="carColor"></p>
-    <p>${message}</p>
-    <p><button type="submit"><fmt:message key="submit"/> </button> </p>
-</form>
+<jsp:include page="header.jsp"/>
+
+
+
+
+<section class="taxi-background">
+    <div class="container">
+        <form action="driver?command=add_car" method="post">
+            <div class="row">
+
+                <h2 style="padding-left: 45%;padding-top: 5%;">Car info</h2>
+                <div class="mb-3">
+                    <label for="car_number" class="form-label">Car number</label>
+                    <input type="text" class="form-control" id="car_number" name="car_number" aria-describedby="car_numberHelp">
+                    <div style="color: red; font-weight: 500;" id="car_numberHelp" class="form-text">Enter car number(6666 AC-7).</div>
+                </div>
+                <div class="mb-3">
+                    <label for="car_brand" class="form-label">Car brand</label>
+                    <input type="text" class="form-control" id="car_brand" name="car_brand" aria-describedby="car_brandHelp">
+                    <div style="color: red; font-weight: 500;" id="car_brandHelp" class="form-text">Enter car brand(BMW, Audi, Ford, e.c.).</div>
+                </div>
+                <div class="mb-3">
+                    <label for="car_model" class="form-label">Car model</label>
+                    <input type="text" class="form-control" id="car_model" name="car_model" aria-describedby="car_modelHelp">
+                    <div style="color: red; font-weight: 500;" id="car_modelHelp" class="form-text">Enter car model(M5, R8, Mustang, e.c.).</div>
+                </div>
+                <div class="mb-3">
+                    <label for="car_color" class="form-label">Car color</label>
+                    <input type="text" class="form-control" id="car_color" name="car_color" aria-describedby="car_colorHelp">
+                    <div style="color: red; font-weight: 500;" id="car_colorHelp" class="form-text">Enter color of car(White, Blue, Black).</div>
+                </div>
+            </div>
+            <br>
+            <div style="margin-top: 4%;" class="row justify-content-center">
+                <div style="" class="col-2">
+                    <button style=" width: 250px; height: 75px;" type="submit" class="btn btn-secondary">
+                        Submit
+                    </button>
+                </div>
+            </div>
+    </div>
+    </form>
+    </div>
+
+</section>
+
+
+
+
+
+
+<jsp:include page="../common/footer.jsp"/>
+
 </body>
 </html>

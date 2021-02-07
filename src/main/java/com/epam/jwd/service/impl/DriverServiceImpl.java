@@ -53,6 +53,14 @@ public class DriverServiceImpl implements DriverService {
         throw new ValidationException("Login : "+login+" is invalid");
     }
 
+    public void addRole(UserRole role, Long userId) throws ServiceException {
+        try {
+            userDao.addRole(role, userId);
+        } catch (DaoException e) {
+            throw new ServiceException("User DAO provides exception in service : "+e);
+        }
+    }
+
     public void updateRideEndDate(Long rideId, LocalDateTime dateTime) throws ServiceException {
         try {
             System.out.println("SERVICE : "+rideId+" Date : "+dateTime);

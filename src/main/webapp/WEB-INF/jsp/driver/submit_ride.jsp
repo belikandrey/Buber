@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: andreybelik
-  Date: 23.01.21
-  Time: 11:46
+  Date: 7.02.21
+  Time: 17:57
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" isELIgnored="false" %>
@@ -15,32 +15,30 @@
 <fmt:setBundle basename="message"/>
 <html>
 <head>
-    <title><fmt:message key="submitRide"/></title>
+    <title>Buber</title>
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=65907f2a-7637-445c-b787-974dcb41f5c2"
             type="text/javascript"></script>
     <script src="https://yandex.st/jquery/2.2.3/jquery.min.js" type="text/javascript"></script>
+
+    <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+
+        }
+    </style>
+
 </head>
 <body>
-<jsp:include page="header.jsp"></jsp:include>
-<h1><fmt:message key="submitRide"/> : </h1>
-<div style="width: 100%; height: 85%" id="map"></div>
-<form method="post" action="driver?command=to_end_driver_ride">
-    <p><fmt:message key="enterCar"/> : <select id="driverCar" name="driverCar">
-        <c:forEach var="car" items="${cars}">
-            <option value="${car.id}">${car.number}</option>
-        </c:forEach>
-    </select></p>
-    <input type="hidden" name="ride_id" value="${ride.id}">
-    <p id="startLocation" hidden>${ride.startLocation.address}</p>
-    <p>
-        <button type="submit"><fmt:message key="startRide"/> </button>
-    </p>
-    <p>${message}</p>
-</form>
+<jsp:include page="header.jsp"/>
+
+
+<div id="map" style="padding-top: 1%;  "></div>
+<p id="startLocation" hidden>${ride.startLocation.address}</p>
 <script type="text/javascript">
     var element = document.getElementById('startLocation');
     var text = element.textContent;
-    console.log("Text : " + text);
 
     ymaps.ready(function () {
         var myMap = new ymaps.Map('map', {
@@ -48,8 +46,19 @@
             zoom: 9,
             // Добавим кнопку для построения маршрутов на карту.
             controls: ['routeButtonControl']
+        }),  firstButton = new ymaps.control.Button({
+            data: {content: "<p style='color:red; font-size:35px;'>Start ride!</p>", title: "Start!"},
+            options: {
+                selectOnClick: false,
+                maxWidth: 900,
+                minWidth: 600,
+                minHeight: 600,
+                maxHeight: 450,
+                position: {left: 150, bottom: 100}
+            }
         });
 
+            myMap.controls.add(firstButton);
         var control = myMap.controls.get('routeButtonControl');
 
         // Зададим координаты пункта отправления с помощью геолокации.
@@ -59,7 +68,32 @@
         })
         // Откроем панель для построения маршрутов.
         control.state.set('expanded', true);
+        firstButton.events.add('click', function () {
+            const form = document.createElement('form');
+            form.method = 'post';
+            form.action = 'driver?command=to_end_ride';
+            form.acceptCharset = 'utf8';
+            params = {
+                ride_id:${ride.id}
+            }
+            for (const key in params) {
+                if (params.hasOwnProperty(key)) {
+                    const hiddenField = document.createElement('input');
+                    hiddenField.type = 'hidden';
+                    hiddenField.name = key;
+                    hiddenField.value = params[key];
+                    form.appendChild(hiddenField);
+                }
+            }
+            document.body.appendChild(form);
+            form.submit();
+        });
+
     });
 </script>
+
+<jsp:include page="../common/footer.jsp"/>
+
+
 </body>
 </html>

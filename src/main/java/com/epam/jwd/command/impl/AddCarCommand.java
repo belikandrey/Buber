@@ -9,7 +9,6 @@ import com.epam.jwd.exception.ServiceException;
 import com.epam.jwd.exception.ValidationException;
 import com.epam.jwd.factory.impl.CarFactory;
 import com.epam.jwd.service.impl.DriverServiceImpl;
-import com.epam.jwd.validator.impl.CarNumberValidator;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,10 +16,10 @@ public class AddCarCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest servletRequest) {
         CommandResult commandResult = new CommandResult("driver?command=to_driver_home", CommandResult.ResponseType.REDIRECT);
-        String carBrand = servletRequest.getParameter("carBrand");
-        String carModel = servletRequest.getParameter("carModel");
-        String carNumber = servletRequest.getParameter("carNumber");
-        String carColor = servletRequest.getParameter("carColor");
+        String carBrand = servletRequest.getParameter("car_brand");
+        String carModel = servletRequest.getParameter("car_model");
+        String carNumber = servletRequest.getParameter("car_number");
+        String carColor = servletRequest.getParameter("car_color");
         Driver driver = (Driver) servletRequest.getSession().getAttribute("driver");
         try {
             Car car = CarFactory.getInstance().create(driver, carNumber, carBrand, carModel, carColor);

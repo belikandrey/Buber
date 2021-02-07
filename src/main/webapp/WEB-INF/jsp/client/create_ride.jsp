@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: andreybelik
-  Date: 12.01.21
-  Time: 00:23
+  Date: 7.02.21
+  Time: 14:24
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" isELIgnored="false" %>
@@ -15,7 +15,7 @@
 <fmt:setBundle basename="message"/>
 <html>
 <head>
-    <title><fmt:message key="createRide.title"/> </title>
+    <title>Buber</title>
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=65907f2a-7637-445c-b787-974dcb41f5c2"
             type="text/javascript"></script>
     <script src="https://yandex.st/jquery/2.2.3/jquery.min.js" type="text/javascript"></script>
@@ -24,14 +24,22 @@
         html, body, #map {
             width: 100%;
             height: 100%;
-            padding: 0;
             margin: 0;
+
         }
     </style>
+
+
+    <link rel="stylesheet" type="text/css" href="/resources/css/common/home.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 </head>
 <body>
-<jsp:include page="header.jsp"></jsp:include>
-<div style="width: 100%; height: 85%" id="map"></div>
+<jsp:include page="header.jsp"/>
+
+
+
+<div id="map" style="padding-top: 6%;  "></div>
 
 <script type="text/javascript">
     var startLongitude, startLatitude;
@@ -44,14 +52,14 @@
             // Добавим кнопку для построения маршрутов на карту.
             controls: ['routePanelControl']
         }), firstButton = new ymaps.control.Button({
-            data: {content: "Order Taxi!", title: "Order Taxi!"},
+            data: {content: "<p style='color:red; font-size:35px;'>Order Taxi!</p>", title: "Order Taxi!"},
             options: {
                 selectOnClick: false,
-                maxWidth: 300,
-                maxHeight: 250,
-                minWidth: 250,
-                minHeight: 200,
-                position: {right: 70, bottom: 50}
+                maxWidth: 900,
+                minWidth: 600,
+                minHeight: 600,
+                maxHeight: 450,
+                position: {left: 150, bottom: 100}
             }
         });
 
@@ -74,28 +82,20 @@
         var from, to, distance, textFrom, textTo;
         firstButton.events.add('click', function () {
             from = control.routePanel.state.get("from");
-            console.log("From x : " + from[0]);
-            console.log("From y : " + from[1]);
             to = control.routePanel.state.get("to")
-            console.log("To x : " + to[0]);
-            console.log("To y : " + to[1]);
             ymaps.geocode(from).then(function (res) {
                 textFrom = res.geoObjects.get(0).getAddressLine();
-                console.log("textFrom : " + textFrom);
                 ymaps.geocode(to).then(function (res) {
                     textTo = res.geoObjects.get(0).getAddressLine();
-                    console.log("textTo : " + textTo);
                     var multiRoutePromise = control.routePanel.getRouteAsync();
                     multiRoutePromise.then(function (multiRoute) {
                         var activeRoute = multiRoute.getActiveRoute();
                         if (activeRoute) {
                             // Вывод информации об активном маршруте.
                             distance = activeRoute.properties.get("distance").text;
-                            console.log("Длина: " + distance);
-                            console.log("Время прохождения: " + activeRoute.properties.get("duration").text);
                             const form = document.createElement('form');
                             form.method = 'post';
-                            form.action = 'client?command=to_create_ride_submit';
+                            form.action = 'client?command=create_ride';
                             form.acceptCharset = 'utf8';
                             params = {
                                 text_from: textFrom,
@@ -127,5 +127,15 @@
         control.state.set('expanded', true);
     });
 </script>
+
+
+
+
+
+
+
+
+<jsp:include page="../common/footer.jsp"/>
+
 </body>
 </html>

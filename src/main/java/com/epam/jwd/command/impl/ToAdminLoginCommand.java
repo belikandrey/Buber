@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 public class ToAdminLoginCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest servletRequest) {
-        return new CommandResult("WEB-INF/jsp/common/admin_login.jsp", CommandResult.ResponseType.FORWARD);
+        return new CommandResult("WEB-INF/jsp/common/admin_log_in.jsp", CommandResult.ResponseType.FORWARD);
+
     }
 }

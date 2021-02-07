@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: andreybelik
-  Date: 23.01.21
-  Time: 11:07
+  Date: 7.02.21
+  Time: 17:45
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" isELIgnored="false" %>
@@ -15,37 +15,69 @@
 <fmt:setBundle basename="message"/>
 <html>
 <head>
-    <title><fmt:message key="availableRides"/> </title>
+    <title>Buber</title>
 </head>
 <body>
-<jsp:include page="header.jsp"></jsp:include>
-<table border="2px">
-    <caption><fmt:message key="availableRides"/> :</caption>
-    <tr>
-        <th><fmt:message key="rideId"/> </th>
-        <th><fmt:message key="clientLogin"/> </th>
-        <th><fmt:message key="startLocation"/> </th>
-        <th><fmt:message key="endLocation"/> </th>
-        <th><fmt:message key="startDate"/> </th>
-        <th><fmt:message key="startDate"/> </th>
-    </tr>
-    <c:forEach var="ride" items="${rides}">
-        <form method="post" action="driver?command=to_driver_submit_ride">
-            <tr>
-                <td>${ride.id}</td>
-                <td>${ride.client.login}</td>
-                <td>${ride.startLocation.address}</td>
-                <td>${ride.endLocation.address}</td>
-                <td>${ride.startDate}</td>
-                <td>${ride.distance}</td>
-                <input hidden name="ride_id" value="${ride.id}">
-                <td>
-                    <button type="submit"><fmt:message key="submit"/> </button>
-                </td>
-            </tr>
-        </form>
-    </c:forEach>
-</table>
-<p>${message}</p>
+<jsp:include page="header.jsp"/>
+
+
+<section class="taxi-background" style="padding-bottom: 5%;">
+    <div class="container">
+        <div class="row">
+            <!-- Welcome to the Buber, <client_name> -->
+            <h1 class="big-font">Available rides</h1><br><br>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row justify-content-left">
+            <table id="example" class="table table-striped table-bordered" style="width:100%; color:black;">
+                <thead>
+                <tr class="table-warning">
+                    <th>Start address</th>
+                    <th>End address</th>
+                    <th>Start date</th>
+                    <th>Distance</th>
+                    <th>Client name</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody style="color:black; font-weight: 700;">
+                <c:forEach var="ride" items="${rides}">
+                    <form action="driver?command=to_driver_submit_ride" method="post">
+                        <tr>
+                            <td>${ride.startLocation.address}</td>
+                            <td>${ride.endLocation.address}</td>
+                            <td>${ride.startDate}</td>
+                            <td>${ride.distance}</td>
+                            <td>${ride.client.name}</td>
+                            <input name="ride_id" type="text" value="${ride.id}" hidden>
+                            <td>
+                                <div class="btn-group" style="width: 100%; ">
+                                    <button type="submit" class="btn btn-secondary" aria-expanded="false">
+                                        Submit
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </form>
+                </c:forEach>
+                </tbody>
+                <tfoot>
+                <tr class="table-warning">
+                    <th>Start address</th>
+                    <th>End address</th>
+                    <th>Start date</th>
+                    <th>Distance</th>
+                    <th>Client name</th>
+                    <th>Action</th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</section>
+
+
+<jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

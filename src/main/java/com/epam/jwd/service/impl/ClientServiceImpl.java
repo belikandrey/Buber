@@ -89,6 +89,10 @@ public class ClientServiceImpl implements ClientService {
     }
 
 
+    public void addRole(Long id, UserRole role){
+
+    }
+
     public Optional<Location> findLocationByLatitudeLongitude(Location location) throws ServiceException {
         try {
             return locationDao.findEntityByCoords(location.getLatitude(), location.getLongitude());
