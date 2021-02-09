@@ -35,7 +35,6 @@
                     <div style="color: red; font-weight: 500;" id="loginHelp" class="form-text"><fmt:message key="loginHelp"/> </div>
                 </div>
                 <button type="submit" class="btn btn-secondary"><fmt:message key="submit"/> </button>
-
             </form>
         </div>
     </div>

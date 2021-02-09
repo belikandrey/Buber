@@ -47,6 +47,11 @@
                         <div style="color: red; font-weight: 500;" id="card_cscHelp" class="form-text"><fmt:message key="cardCscHelp"/> (123, 435, 974).</div>
                     </div>
                     <br>
+                    <div class="row justify-content-center" >
+                        <div class="col-2">
+                        <p style="color:red; font-weight: bold; font-size: x-large;">${message}</p>
+                        </div>
+                    </div>
                     <div style="margin-top: 4%;" class="row justify-content-center">
                         <div style="" class="col-2">
                             <button style=" width: 250px; height: 75px;" type="submit" class="btn btn-secondary">

@@ -63,7 +63,7 @@
                             <div class="btn-group" style="width: 100%; ">
                                 <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown"
                                         aria-expanded="false">
-                                    New mark
+                                    <fmt:message key="newMarkForDriver"/>
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="client?command=update_driver_mark&mark=1&ride_id=${ride.id}"><fmt:message key="disquasting"/> </a></li>

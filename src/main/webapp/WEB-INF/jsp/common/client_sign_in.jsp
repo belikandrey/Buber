@@ -57,7 +57,10 @@
                 </div>
                 <div class="mb-3">
                     <label for="password2" class="form-label"><fmt:message key="repeatPassword"/> </label>
-                    <input type="password" class="form-control" name="repeatedPassword" id="password2" aria-disabledby="passwordHelp2">
+                    <input type="password" class="form-control" name="repeatedPassword" id="password2">
+                </div>
+                <div class="row" >
+                    <p style="color:red; font-weight: bold; font-size: x-large;">${message}</p>
                 </div>
                 <button style=" width: 200px;" type="submit" class="btn btn-secondary"><fmt:message key="submit"/> </button>
             </form>

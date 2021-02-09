@@ -23,7 +23,6 @@ public class ForgotPasswordCommand implements Command {
             }else if(clientOptional.isPresent()){
                 MailSender.MAIL_SENDER.send(clientOptional.get().getEmail(), "Support", "Your password : "+clientOptional.get().getPassword());
             }
-
         } catch (Exception e) {
             System.out.println(e);
         }

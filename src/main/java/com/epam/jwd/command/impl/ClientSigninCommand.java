@@ -26,7 +26,7 @@ public class ClientSignInCommand implements Command {
         CommandResult commandResult;
         String message;
         if(password==null || !password.equals(repeatedPassword)){
-            commandResult = new CommandResult("WEB-INF/jsp/common/to_client_sign_in.jsp", CommandResult.ResponseType.FORWARD);
+            commandResult = new CommandResult("WEB-INF/jsp/common/client_sign_in.jsp", CommandResult.ResponseType.FORWARD);
             message = "Passwords do not match";
             commandResult.addAttribute("message", message);
             return commandResult;
@@ -46,9 +46,9 @@ public class ClientSignInCommand implements Command {
         } catch (ServiceException e) {
             message = "Sorry, aliens attacked our server ... But they left some incomprehensible message : "+e+"...\n Please, try again later";
         } catch (ValidationException e) {
-            message = "Invalid login, phone number or email : "+e;
+            message = "Invalid login, phone number or email : "+e.getMessage();
         }
-        commandResult = new CommandResult("WEB-INF/jsp/common/to_client_sign_in.jsp", CommandResult.ResponseType.FORWARD);
+        commandResult = new CommandResult("WEB-INF/jsp/common/client_sign_in.jsp", CommandResult.ResponseType.FORWARD);
         commandResult.addAttribute("message", message);
         return commandResult;
     }

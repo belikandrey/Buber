@@ -28,7 +28,6 @@
 <section class="taxi-background" >
     <div class="container">
         <div class="row">
-            <!-- Welcome to the Admin, <admin_login> -->
             <h1 class="big-font" ><fmt:message key="mainLabel"/> , ${admin.login}!</h1><br><br>
         </div>
     </div>

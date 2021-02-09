@@ -29,6 +29,7 @@ public enum CommandType {
     UPDATE_DRIVER_MARK(new UpdateDriverMarkCommand()),
     CLIENT_TO_SIGN_AS_DRIVER(new ClientToSignAsDriverCommand()),
     CLIENT_SIGN_AS_DRIVER(new ClientSignAsDriverCommand()),
+    DRIVER_SIGN_IN(new DriverSignInCommand()),
     TO_DRIVER_HOME(new ToDriverHomeCommand()),
     CURRENT_CAR(new CurrentCarCommand()),
     TO_ADD_CAR(new ToAddCarCommand()),
@@ -48,7 +49,12 @@ public enum CommandType {
     TO_SHOW_PAYMENTS(new ToShowPaymentsCommand()),
     TO_UPDATE_CLIENTS(new ToUpdateClientsCommand()),
     TO_UPDATE_DRIVERS(new ToUpdateDriversCommand()),
-    ADD_ADMIN(new AddAdminCommand())
+    ADD_ADMIN(new AddAdminCommand()),
+    CONFIRM_DRIVER(new ConfirmDriverCommand()),
+    UPDATE_CLIENT_STATUS(new UpdateClientStatusCommand()),
+    UPDATE_CLIENT_RATING(new UpdateClientRatingCommand()),
+    UPDATE_DRIVER_STATUS(new UpdateDriverStatusCommand()),
+    UPDATE_DRIVER_RATING(new UpdateDriverRatingCommand())
     ;
 
     private Command command;

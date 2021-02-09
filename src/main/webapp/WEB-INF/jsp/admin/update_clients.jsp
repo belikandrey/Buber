@@ -16,11 +16,115 @@
 <html>
 <head>
     <title>Buber</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link rel="shortcut icon" href="/resources/img/Buber_ico.ico"/>
-
 </head>
 <body>
 <jsp:include page="header.jsp"/>
+
+
+
+<section class="taxi-background" style="padding-bottom: 5%;">
+    <div class="container">
+        <div class="row">
+            <h1 class="big-font"><fmt:message key="clients"/> </h1><br><br>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <p style="font-size: x-large; color: red; font-weight: bold;">${message}</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row justify-content-left">
+            <table id="example" class="table table-striped table-bordered" style="width:100%; color:black;">
+                <thead>
+                <tr class="table-warning">
+                    <th><fmt:message key="name"/> </th>
+                    <th><fmt:message key="email"/> </th>
+                    <th><fmt:message key="phoneNumber"/> </th>
+                    <th><fmt:message key="rating"/></th>
+                    <th><fmt:message key="status"/> </th>
+                    <th><fmt:message key="countRide"/> </th>
+                    <th><fmt:message key="bonus"/> </th>
+                    <th><fmt:message key="newStatus"/> </th>
+                    <th><fmt:message key="newRating"/> </th>
+                </tr>
+                </thead>
+                <tbody style="color:black; font-weight: 700;">
+                <c:forEach var="client" items="${clients}">
+                    <tr>
+                        <td>${client.name}</td>
+                        <td>${client.email}</td>
+                        <td>${client.phoneNumber}</td>
+                        <td>${client.rating}</td>
+                        <td>${client.status}</td>
+                        <td>${client.countRide}</td>
+                        <td>${client.bonusPercent}%</td>
+                        <td>
+                            <div class="btn-group" style="width: 100%; ">
+                                <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                    <fmt:message key="newStatus"/>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="admin?command=update_client_status&newStatus=ACTIVE&login=${client.login}"><fmt:message key="active"/> </a></li>
+                                    <li><a class="dropdown-item" href="admin?command=update_client_status&newStatus=BANNED&login=${client.login}"><fmt:message key="banned"/> </a></li>
+                                    <li><a class="dropdown-item" href="admin?command=update_client_status&newStatus=NOT_VERIFIED&login=${client.login}"><fmt:message key="notVerified"/> </a></li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="btn-group" style="width: 100%; ">
+                                <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                    <fmt:message key="newRating"/>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="admin?command=update_client_rating&newRating=1&login=${client.login}"><fmt:message key="disquasting"/> </a></li>
+                                    <li><a class="dropdown-item" href="admin?command=update_client_rating&newRating=2&login=${client.login}"><fmt:message key="bad"/> </a></li>
+                                    <li><a class="dropdown-item" href="admin?command=update_client_rating&newRating=3&login=${client.login}"><fmt:message key="tolerant"/> </a></li>
+                                    <li><a class="dropdown-item" href="admin?command=update_client_rating&newRating=4&login=${client.login}"><fmt:message key="normal"/> </a></li>
+                                    <li><a class="dropdown-item" href="admin?command=update_client_rating&newRating=5&login=${client.login}"><fmt:message key="fine"/> </a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+                <tfoot>
+                <tr class="table-warning">
+                    <th><fmt:message key="name"/> </th>
+                    <th><fmt:message key="email"/> </th>
+                    <th><fmt:message key="phoneNumber"/> </th>
+                    <th><fmt:message key="rating"/></th>
+                    <th><fmt:message key="status"/> </th>
+                    <th><fmt:message key="countRide"/> </th>
+                    <th><fmt:message key="bonus"/> </th>
+                    <th><fmt:message key="newStatus"/> </th>
+                    <th><fmt:message key="newRating"/> </th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#example').DataTable();
+    } );
+</script>
 
 
 

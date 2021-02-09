@@ -17,10 +17,72 @@
 <head>
     <title>Buber</title>
     <link rel="shortcut icon" href="/resources/img/Buber_ico.ico"/>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
 </head>
 <body>
 <jsp:include page="header.jsp"/>
+
+
+<section class="taxi-background" style="padding-bottom: 5%;">
+    <div class="container">
+        <div class="row">
+            <h1 class="big-font"><fmt:message key="allRides"/> </h1><br><br>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row justify-content-left">
+            <table id="example" class="table table-striped table-bordered" style="width:100%; color:black;">
+                <thead>
+                <tr class="table-warning">
+                    <th><fmt:message key="clientLogin"/> </th>
+                    <th><fmt:message key="driverLogin"/> </th>
+                    <th><fmt:message key="startAddress"/> </th>
+                    <th><fmt:message key="endAddress"/> </th>
+                    <th><fmt:message key="markForClient"/> </th>
+                    <th><fmt:message key="markForDriver"/> </th>
+                </tr>
+                </thead>
+                <tbody style="color:black; font-weight: 700;">
+                <c:forEach var="ride" items="${rides}">
+                    <tr>
+                        <td>${ride.client.login}</td>
+                        <td>${ride.driver.login}</td>
+                        <td>${ride.startLocation.address}</td>
+                        <td>${ride.endLocation.address}</td>
+                        <td>${ride.clientMark}</td>
+                        <td>${ride.driverMark}</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+                <tfoot>
+                <tr class="table-warning">
+                    <th><fmt:message key="clientLogin"/> </th>
+                    <th><fmt:message key="driverLogin"/> </th>
+                    <th><fmt:message key="startAddress"/> </th>
+                    <th><fmt:message key="endAddress"/> </th>
+                    <th><fmt:message key="markForClient"/> </th>
+                    <th><fmt:message key="markForDriver"/> </th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</section>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#example').DataTable();
+    } );
+</script>
 
 
 

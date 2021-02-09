@@ -50,8 +50,8 @@
                         <fmt:message key="driver"/>
                     </label>
                 </div>
+                <p  style="color:red; font-weight: bold; font-size: x-large;">${message}</p>
                 <button type="submit" class="btn btn-secondary"><fmt:message key="submit"/> </button>
-                <p style="color: red; font-weight: bold;">${message}</p>
             </form>
             <div style="padding-top: 25px;"><a style="color: red;" href="home?command=to_forgot_password"><fmt:message key="forgotPassword"/></a></div>
         </div>

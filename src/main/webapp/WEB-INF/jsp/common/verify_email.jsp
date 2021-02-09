@@ -34,6 +34,9 @@
                     <input type="text" class="form-control" id="userCode" name="userCode" aria-describedby="codeHelp">
                     <div style="color: red; font-weight: 500;" id="codeHelp" class="form-text"><fmt:message key="codeHelp"/> </div>
                 </div>
+                <div>
+                    <p style="color:red; font-weight: bold; font-size: x-large;">${message}</p>
+                </div>
                 <button type="submit" class="btn btn-secondary"><fmt:message key="submit"/> </button>
             </form>
         </div>

@@ -16,7 +16,7 @@ import java.util.Collections;
 public class AddAdminCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest servletRequest) {
-        CommandResult commandResult = new CommandResult("admin?command=to_add_admin", CommandResult.ResponseType.FORWARD);
+        CommandResult commandResult = new CommandResult("WEB-INF/jsp/admin/add_admin.jsp", CommandResult.ResponseType.FORWARD);
         String login = servletRequest.getParameter("login");
         String password = servletRequest.getParameter("password");
         if(login!=null && password!=null ){

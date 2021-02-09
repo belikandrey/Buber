@@ -17,10 +17,10 @@ public class AddBankCardCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest servletRequest) {
         CommandResult commandResult = new CommandResult("client?command=to_client_home", CommandResult.ResponseType.REDIRECT);
-        commandResult.addAttribute("message", "successful");
         try {
             ClientServiceImpl.getInstance().addBankCard(parseBankCard(servletRequest));
         } catch (Exception e){
+            commandResult = new CommandResult("WEB-INF/jsp/client/add_bank_card.jsp", CommandResult.ResponseType.FORWARD);
             commandResult.addAttribute("message", e.getMessage());
         }
         return commandResult;

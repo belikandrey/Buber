@@ -7,7 +7,11 @@ body{
 .taxi-background{
     padding-top: 13%;
 	background: url(../img/taxi-background4-min3.jpg) repeat;
-            
+}
+.message{
+    color: red;
+    font-weight: bold;
+    border: 3px solid black;
 }
 .taxi-background .container{
      padding-bottom: 4%;

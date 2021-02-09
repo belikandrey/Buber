@@ -35,6 +35,9 @@
                     <label for="exampleInputPassword1" class="form-label"><fmt:message key="password"/> </label>
                     <input type="password" class="form-control" name="password" id="exampleInputPassword1">
                 </div>
+                <div class="row" >
+                    <p style="color: red; font-weight: bold; font-size: x-large;">${message}</p>
+                </div>
                 <div>
                     <button style="width: 150px; margin-top: 50px;" type="submit" class="btn btn-secondary"><fmt:message key="submit"/> </button>
                 </div>

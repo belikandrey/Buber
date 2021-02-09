@@ -18,10 +18,11 @@ public class AdminFilter extends HttpFilter {
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
         List<UserRole> roles = (List<UserRole>) req.getSession().getAttribute("userRoles");
         if(roles==null || !roles.contains(UserRole.ADMIN)){
-            RequestDispatcher requestDispatcher = req.getRequestDispatcher("home?command=to_admin_login");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("home?command=to_admin_log_in");
             req.setAttribute("message", "You must log in before start");
             requestDispatcher.forward(req, res);
+        }else {
+            chain.doFilter(req, res);
         }
-        chain.doFilter(req, res);
     }
 }
