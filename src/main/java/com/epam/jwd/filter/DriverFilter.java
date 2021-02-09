@@ -26,7 +26,7 @@ public class DriverFilter extends HttpFilter {
             req.setAttribute("message", "You must log in before start");
             requestDispatcher.forward(req, res);
         }else if(driver!=null && driver.getStatus()== DriverStatus.NOT_VERIFIED){
-            RequestDispatcher requestDispatcher = req.getRequestDispatcher("home?command=to_driver_verify_email");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("home?command=to_verify_email");
             req.setAttribute("message", "You should verify email before start using app");
             requestDispatcher.forward(req, res);
         }else {

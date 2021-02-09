@@ -38,7 +38,17 @@ public enum CommandType {
     TO_AVAILABLE_RIDES(new ToAvailableRidesCommand()),
     TO_DRIVER_SUBMIT_RIDE(new ToDriverSubmitRideCommand()),
     TO_END_RIDE(new ToEndRideCommand()),
-    END_RIDE(new EndRideCommand())
+    END_RIDE(new EndRideCommand()),
+    LOGOUT(new LogoutCommand()),
+    ADMIN_LOGIN(new AdminLoginCommand()),
+    TO_ADMIN_HOME(new ToAdminHomeCommand()),
+    TO_ADD_ADMIN(new ToAddAdminCommand()),
+    TO_CONFIRM_DRIVER(new ToConfirmDriverCommand()),
+    TO_SHOW_RIDES(new ToShowRidesCommand()),
+    TO_SHOW_PAYMENTS(new ToShowPaymentsCommand()),
+    TO_UPDATE_CLIENTS(new ToUpdateClientsCommand()),
+    TO_UPDATE_DRIVERS(new ToUpdateDriversCommand()),
+    ADD_ADMIN(new AddAdminCommand())
     ;
 
     private Command command;

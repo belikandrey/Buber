@@ -16,6 +16,7 @@
 <html>
 <head>
     <title>Buber</title>
+    <link rel="shortcut icon" href="/resources/img/Buber_ico.ico"/>
 
 </head>
 <body>
@@ -25,31 +26,27 @@
 <section class="taxi-background" style="padding-bottom: 5%;">
     <div class="container">
         <div class="row">
-            <!-- Welcome to the Buber, <client_name> -->
-            <h1 class="big-font" >End ride!</h1><br><br>
+            <h1 class="big-font" ><fmt:message key="endRide"/> !</h1><br><br>
         </div>
         <div class="row">
-            <!--STATUS-->
-            <h2 class="big-font middle-left" >Start address : ${ride.startLocation.address}</h2>
-            <!--RATING-->
-            <h2 class="big-font  middle-left">End address : ${ride.endLocation.address}</h2>
+            <h2 class="big-font middle-left" ><fmt:message key="startAddress"/> : ${ride.startLocation.address}</h2>
+            <h2 class="big-font  middle-left"><fmt:message key="endAddress"/> : ${ride.endLocation.address}</h2>
             <br>
-            <!--BONUS%-->
-            <h2 class="big-font middle-left">Price : ${payment.price}</h2>
+            <h2 class="big-font middle-left"><fmt:message key="price"/> : ${payment.price}</h2>
             <br>
 
-            <h2 class="big-font middle-left">Payment type : ${payment.paymentType}</h2>
+            <h2 class="big-font middle-left"><fmt:message key="paymentType"/> : ${payment.paymentType}</h2>
             <br>
 
 
             <form method="post" action="driver?command=end_ride">
             <div class="col-4">
                 <select  id="clientMark" name="clientMark" style="width: 75%; height: 55%;" class="btn-secondary">
-                    <option value="1">Disgusting </option>
-                    <option value="2">Bad </option>
-                    <option value="3">Tolerant</option>
-                    <option value="4">Normal </option>
-                    <option value="5">Fine </option>
+                    <option value="1"><fmt:message key="disquasting"/> </option>
+                    <option value="2"><fmt:message key="bad"/> </option>
+                    <option value="3"><fmt:message key="tolerant"/></option>
+                    <option value="4"><fmt:message key="normal"/> </option>
+                    <option value="5"><fmt:message key="fine"/> </option>
                 </select>
                 <p><input hidden name="ride_id" value="${ride.id}"></p>
             </div>
@@ -59,7 +56,7 @@
                 <div class="row justify-content-center"  style="padding-left: 34%; ">
                     <!-- Welcome to the Buber, <client_name> -->
                     <div class="col-8">
-                            <button style="width: 40%; height: 130%;" type="submit" class="btn btn-secondary">Submit!</button>
+                            <button style="width: 40%; height: 130%;" type="submit" class="btn btn-secondary"><fmt:message key="submit"/> !</button>
                     </div>
                 </div>
             </div>

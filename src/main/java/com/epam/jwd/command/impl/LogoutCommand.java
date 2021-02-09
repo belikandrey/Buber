@@ -5,9 +5,10 @@ import com.epam.jwd.command.CommandResult;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class ToAdminLoginCommand implements Command {
+public class LogoutCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest servletRequest) {
-        return new CommandResult("WEB-INF/jsp/common/admin_log_in.jsp", CommandResult.ResponseType.FORWARD);
+        servletRequest.getSession().invalidate();
+        return new CommandResult("home?command=to_home", CommandResult.ResponseType.REDIRECT);
     }
 }

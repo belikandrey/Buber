@@ -16,6 +16,8 @@
 <html>
 <head>
     <title>Buber</title>
+    <link rel="shortcut icon" href="/resources/img/Buber_ico.ico"/>
+
 </head>
 <body>
 <jsp:include page="header.jsp"/>
@@ -28,16 +30,16 @@
             <div class="row">
 
                 <div style="padding-left: 25%;" class="col col-lg-9">
-                    <h2 style="padding-left: 30%;">New password</h2>
+                    <h2 style="padding-left: 30%;"><fmt:message key="newPassword"/> </h2>
                     <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
+                        <label for="password" class="form-label"><fmt:message key="password"/> </label>
                         <input type="password" class="form-control" id="password" name="password" aria-describedby="passwordHelp">
-                        <div style="color: red; font-weight: 500;" id="passwordHelp" class="form-text">Enter password.</div>
+                        <div style="color: red; font-weight: 500;" id="passwordHelp" class="form-text"><fmt:message key="passwordHelp"/> </div>
                     </div>
                     <div style="margin-top: 4%;margin-left: 30%;" class="row" >
                         <div style="" class="col-2">
                             <button style=" width: 250px; height: 75px;" type="submit" class="btn btn-secondary">
-                                Submit
+                                <fmt:message key="submit"/>
                             </button>
                         </div>
                     </div>

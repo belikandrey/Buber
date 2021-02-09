@@ -5,9 +5,10 @@ import com.epam.jwd.command.CommandResult;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class ToAdminLoginCommand implements Command {
+public class ToUpdateClientsCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest servletRequest) {
-        return new CommandResult("WEB-INF/jsp/common/admin_log_in.jsp", CommandResult.ResponseType.FORWARD);
+        return new CommandResult("WEB-INF/jsp/admin/update_drivers.jsp", CommandResult.ResponseType.FORWARD);
+
     }
 }

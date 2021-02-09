@@ -63,8 +63,8 @@ public class RideDAO implements AbstractDao<Long, Ride> {
 
     public void updateEndDate(Long rideId, LocalDateTime endTime) throws DaoException {
         try(Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_END_DATE)){
-            Date date = Date.valueOf(endTime.toLocalDate());
-            preparedStatement.setDate(1, date);
+            Timestamp timestamp = Timestamp.valueOf(endTime);
+            preparedStatement.setTimestamp(1, timestamp);
             preparedStatement.setLong(2, rideId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -152,8 +152,8 @@ public class RideDAO implements AbstractDao<Long, Ride> {
         preparedStatement.setLong(2, entity.getDriver().getId());
         preparedStatement.setLong(3, entity.getStartLocation().getId());
         preparedStatement.setLong(4, entity.getEndLocation().getId());
-        preparedStatement.setDate(5, Date.valueOf(entity.getStartDate().toLocalDate()));
-        preparedStatement.setDate(6, Date.valueOf(entity.getEndDate().toLocalDate()));
+        preparedStatement.setTimestamp(5, Timestamp.valueOf(entity.getStartDate()));
+        preparedStatement.setTimestamp(6, Timestamp.valueOf(entity.getEndDate()));
         preparedStatement.setInt(7, entity.getClientMark().ordinal() + 1);
         preparedStatement.setInt(8, entity.getDriverMark().ordinal() + 1);
         preparedStatement.setDouble(9, entity.getDistance());
@@ -164,18 +164,11 @@ public class RideDAO implements AbstractDao<Long, Ride> {
             preparedStatement.setLong(1, ride.getClient().getId());
             preparedStatement.setLong(2, LocationDao.LOCATION_DAO.findEntityByCoords(ride.getStartLocation().getLatitude(), ride.getStartLocation().getLongitude()).get().getId());
             preparedStatement.setLong(3, LocationDao.LOCATION_DAO.findEntityByCoords(ride.getEndLocation().getLatitude(), ride.getEndLocation().getLongitude()).get().getId());
-            preparedStatement.setDate(4, Date.valueOf(ride.getStartDate().toLocalDate()));
+            preparedStatement.setTimestamp(4, Timestamp.valueOf(ride.getStartDate()));
             preparedStatement.setDouble(5, ride.getDistance());
-            System.out.println("Client ID : "+ride.getClient().getId());
-            System.out.println( LocationDao.LOCATION_DAO.findEntityByCoords(ride.getStartLocation().getLatitude(),ride.getStartLocation().getLongitude()).get().getId());
-            System.out.println(LocationDao.LOCATION_DAO.findEntityByCoords(ride.getEndLocation().getLatitude(), ride.getEndLocation().getLongitude()).get().getId());
-            System.out.println(Date.valueOf(ride.getStartDate().toLocalDate()));
-            System.out.println( ride.getDistance());
-            int i = preparedStatement.executeUpdate();
-            System.out.println(i);
-            return i>0;
+
+            return preparedStatement.executeUpdate()>0;
         }catch (SQLException | DaoException e){
-            System.out.println(e);
             throw new DaoException(e);
         }
     }

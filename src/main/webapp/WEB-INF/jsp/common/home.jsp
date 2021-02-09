@@ -25,14 +25,14 @@
 <section class="taxi-background">
     <div class="container">
         <div class="row">
-            <h1 class="big-font" >Welcome to the Buber!<br><br><br><p><a class="biggest-text" style="color: black;" href="tel:#">666-66-66</a></p></h1>
+            <h1 class="big-font" ><fmt:message key="mainLabel"/> !<br><br><br><p><a class="biggest-text" style="color: black;" href="tel:#">666-66-66</a></p></h1>
         </div>
     </div>
 </section>
 
 <section>
     <div class="container">
-        <h2 style="text-align: center; padding-top: 5%;">CAR TYPES</h2>
+        <h2 style="text-align: center; padding-top: 5%;"><fmt:message key="carTypes"/> </h2>
         <div class="divider divider-default"></div>
         <div class="row colomns-padd">
             <div class="col">
@@ -42,12 +42,12 @@
                 </div>
                 <div class="box-info">
                     <div class="box-header">
-                        <h4><i>BASIC</i></h4>
+                        <h4><i><fmt:message key="basic"/></i></h4>
                     </div>
                     <div class="box-pluses">
                         <ul class="box-list">
-                            <li>Lots of locations</li>
-                            <li>Waiting over 12 min</li>
+                            <li><fmt:message key="lotsOfLocations"/></li>
+                            <li><fmt:message key="waitingOver"/></li>
                         </ul>
                     </div>
                 </div>
@@ -58,13 +58,13 @@
                 </div>
                 <div class="box-info">
                     <div class="box-header">
-                        <h4><i>BUSINES</i></h4>
+                        <h4><i><fmt:message key="busines"/></i></h4>
                     </div>
                     <div class="box-pluses">
                         <ul class="box-list">
-                            <li>Lots of locations</li>
-                            <li>Waiting over 12 min</li>
-                            <li>Luggage transportation</li>
+                            <li><fmt:message key="lotsOfLocations"/></li>
+                            <li><fmt:message key="waitingOver"/></li>
+                            <li><fmt:message key="luggageTransportation"/></li>
                         </ul>
                     </div>
                 </div>
@@ -75,14 +75,14 @@
                 </div>
                 <div class="box-info">
                     <div class="box-header">
-                        <h4><i>MINIVAN</i></h4>
+                        <h4><i><fmt:message key="minivan"/></i></h4>
                     </div>
                     <div class="box-pluses">
                         <ul class="box-list">
-                            <li>Lots of locations</li>
-                            <li>Waiting over 12 min</li>
-                            <li>Luggage transportation</li>
-                            <li>Baby seat</li>
+                            <li><fmt:message key="lotsOfLocations"/></li>
+                            <li><fmt:message key="waitingOver"/></li>
+                            <li><fmt:message key="luggageTransportation"/></li>
+                            <li><fmt:message key="babySeat"/></li>
                         </ul>
                     </div>
                 </div>
@@ -93,15 +93,15 @@
                 </div>
                 <div class="box-info">
                     <div class="box-header">
-                        <h4><i>TRUCK</i></h4>
+                        <h4><i><fmt:message key="truck"/></i></h4>
                     </div>
                     <div class="box-pluses">
                         <ul class="box-list">
-                            <li>Lots of locations</li>
-                            <li>Waiting over 12 min</li>
-                            <li>Luggage transportation</li>
-                            <li>Baby seat</li>
-                            <li>Animal transportation</li>
+                            <li><fmt:message key="lotsOfLocations"/></li>
+                            <li><fmt:message key="waitingOver"/></li>
+                            <li><fmt:message key="luggageTransportation"/></li>
+                            <li><fmt:message key="babySeat"/></li>
+                            <li><fmt:message key="animalTransportation"/></li>
                         </ul>
                     </div>
                 </div>
@@ -119,24 +119,24 @@
             </div>
             <div class="col">
                 <div class="questions">
-                    <h2>COMMON QUESTIONS</h2>
+                    <h2><fmt:message key="commonQuestions"/></h2>
                     <br>
                     <p class="quetions-info">
                         <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
-                            How can I order a taxi?
+                            <fmt:message key="howOrderTaxi"/>
                         </button>
                         <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2e">
-                            How can I pay for my order in the taxi?
+                            <fmt:message key="howPayForOrderTaxi"/>
                         </button>
                     </p>
                     <div class="collapse" id="collapse1">
                         <div class="card card-body">
-                            Ordering our taxi is easy! Since you are already here you can book your trip now using our website.  Ordering a taxi online saves you time. You should sign up in our website and click on button "Create order".
+                            <fmt:message key="howOrderTaxiAnswer"/>
                         </div>
                     </div>
                     <div class="collapse" id="collapse2">
                         <div class="card card-body">
-                            We accept cash and major credit cards - Visa, MasterCard, and Maestro.
+                            <fmt:message key="howPayForOrderTaxiAnswer"/>
                         </div>
                     </div>
                 </div>

@@ -39,11 +39,11 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#foot">Contacts</a>
+                        <a class="nav-link" href="#foot"><fmt:message key="contacts"/> </a>
                     </li>
                 </ul>
 
-                <a href="driver?command=logout"><button  class="btn btn-success" type="submit">Logout</button></a>
+                <a href="driver?command=logout"><button  class="btn btn-success" type="submit"><fmt:message key="logout"/> </button></a>
 
             </div>
 

@@ -14,7 +14,6 @@
 <fmt:setLocale value="${language}"/>
 <fmt:setBundle basename="message"/>
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/home.css"/>">
-<link rel="shortcut icon" href="Buber_ico.ico">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
@@ -35,28 +34,14 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!--<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <form>
-                        <select style="width: 100%;margin-top: 30%;" class="btn-light" id="language" name="language"
-                                onchange="submit()">
-                            <option value="" selected disabled hidden>Lang</option>
-                            <option value="ru" ${language == 'ru' ? 'selected' : ''}>Ru</option>
-                            <option value="en" ${language == 'en' ? 'selected' : ''}>En</option>
-                        </select>
-                    </form>
-                    </li>
-                    <li class="nav-item" style="margin-top: 3%;">
-                        <a class="nav-link" href="#foot">Contacts</a>
-                    </li>
-                </ul>-->
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#foot">Contacts</a>
+                        <a class="nav-link" href="#foot"><fmt:message key="contacts"/> </a>
                     </li>
                 </ul>
 
-                <a href="client?command=logout"><button  class="btn btn-success" type="submit">Logout</button></a>
+                <a href="client?command=logout"><button  class="btn btn-success" type="submit"><fmt:message key="logout"/></button></a>
 
             </div>
 

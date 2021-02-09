@@ -19,6 +19,7 @@
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=65907f2a-7637-445c-b787-974dcb41f5c2"
             type="text/javascript"></script>
     <script src="https://yandex.st/jquery/2.2.3/jquery.min.js" type="text/javascript"></script>
+    <link rel="shortcut icon" href="/resources/img/Buber_ico.ico"/>
 
     <style>
         html, body, #map {

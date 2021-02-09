@@ -32,9 +32,9 @@ public class VerifyEmailCommand implements Command {
                     servletRequest.setAttribute("message", "Error at server! Message admin, please");
                 }
             }else if(driver!=null){
-                driver.setStatus(DriverStatus.NOT_VERIFIED);
+                driver.setStatus(DriverStatus.WAITING_CONFIRM);
                 try {
-                    DriverServiceImpl.getInstance().updateStatus(driver.getLogin(), DriverStatus.NOT_VERIFIED);
+                    DriverServiceImpl.getInstance().updateStatus(driver.getLogin(), DriverStatus.WAITING_CONFIRM);
                     commandResult = new CommandResult("driver?command=to_driver_home", CommandResult.ResponseType.REDIRECT);
                 } catch (ServiceException e) {
                     servletRequest.setAttribute("message", "Error at server! Message admin, please");

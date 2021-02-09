@@ -34,11 +34,11 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item" style="margin-top: 3%;">
-                        <a class="nav-link" href="#foot">Contacts</a>
+                        <a class="nav-link" href="#foot"><fmt:message key="contacts"/> </a>
                     </li>
                 </ul>
                 <a href="home?command=to_admin_log_in">
-                    <button style="opacity: 0.08;" >Log in as admin</button>
+                    <button style="opacity: 0.08;" ><fmt:message key="logAsAdmin"/> </button>
                 </a>
             </div>
         </div>

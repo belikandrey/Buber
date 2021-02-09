@@ -16,6 +16,7 @@
 <html>
 <head>
     <title>Buber</title>
+    <link rel="shortcut icon" href="/resources/img/Buber_ico.ico"/>
 </head>
 <body>
 <jsp:include page="headerForJoin.jsp"/>
@@ -23,19 +24,19 @@
 <section class="taxi-background">
     <div class="container">
         <div class="row inpForm" >
-            <h2 class="big-font" >Welcome to the Buber, Admin!<br><br></h2>
-            <form action="#">
+            <h2 class="big-font" ><fmt:message key="mainLabel"/> , Admin!<br><br></h2>
+            <form action="home?command=admin_login" method="post">
                 <div class="mb-3">
-                    <label for="login" class="form-label">Login</label>
+                    <label for="login" class="form-label"><fmt:message key="login"/> </label>
                     <input type="text" class="form-control" id="login" name="login" aria-describedby="loginHelp">
-                    <div style="color: red; font-weight: 500;" id="loginHelp" class="form-text">We'll never share your login with anyone else.</div>
+                    <div style="color: red; font-weight: 500;" id="loginHelp" class="form-text"><fmt:message key="loginHelp"/> </div>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <label for="exampleInputPassword1" class="form-label"><fmt:message key="password"/> </label>
                     <input type="password" class="form-control" name="password" id="exampleInputPassword1">
                 </div>
                 <div>
-                    <button style="width: 150px; margin-top: 50px;" type="submit" class="btn btn-secondary">Submit</button>
+                    <button style="width: 150px; margin-top: 50px;" type="submit" class="btn btn-secondary"><fmt:message key="submit"/> </button>
                 </div>
             </form>
         </div>

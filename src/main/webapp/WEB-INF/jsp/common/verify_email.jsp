@@ -16,6 +16,8 @@
 <html>
 <head>
     <title>Buber</title>
+    <link rel="shortcut icon" href="/resources/img/Buber_ico.ico"/>
+
 </head>
 <body>
 
@@ -25,14 +27,14 @@
 <section class="taxi-background">
     <div class="container">
         <div class="row inpForm" >
-            <h2 style="font-size: 32px;" class="big-font" >Enter code from your email</h2>
+            <h2 style="font-size: 32px;" class="big-font" ><fmt:message key="enterCodeFromEmail"/> </h2>
             <form action="home?command=verify_email" method="post">
                 <div class="mb-3">
-                    <label for="userCode" class="form-label">Code</label>
+                    <label for="userCode" class="form-label"><fmt:message key="code"/> </label>
                     <input type="text" class="form-control" id="userCode" name="userCode" aria-describedby="codeHelp">
-                    <div style="color: red; font-weight: 500;" id="codeHelp" class="form-text">We send code for verification on your email. Put it here</div>
+                    <div style="color: red; font-weight: 500;" id="codeHelp" class="form-text"><fmt:message key="codeHelp"/> </div>
                 </div>
-                <button type="submit" class="btn btn-secondary">Submit</button>
+                <button type="submit" class="btn btn-secondary"><fmt:message key="submit"/> </button>
             </form>
         </div>
     </div>
