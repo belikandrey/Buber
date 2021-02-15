@@ -3,7 +3,7 @@ package com.epam.jwd.domain.impl;
 import java.util.List;
 import java.util.Objects;
 
-public class Client extends User{
+public class Client extends User {
     private String name;
     private String phoneNumber;
     private String email;
@@ -12,72 +12,74 @@ public class Client extends User{
     private int bonusPercent;
     private int countRide;
 
-    public static Builder newBuilder(){
+    public static Builder newBuilder() {
         return new Client().new Builder();
     }
 
-    private Client(){}
+    private Client() {
+    }
 
-    public class Builder{
+    public class Builder {
 
-        private Builder(){}
+        private Builder() {
+        }
 
-        public Builder addName(String name){
+        public Builder addName(String name) {
             Client.this.name = name;
             return this;
         }
 
-        public Builder addPhoneNumber(String number){
+        public Builder addPhoneNumber(String number) {
             Client.this.phoneNumber = number;
             return this;
         }
 
-        public Builder addEmail(String email){
+        public Builder addEmail(String email) {
             Client.this.email = email;
             return this;
         }
 
-        public Builder addRating(Rating rating){
+        public Builder addRating(Rating rating) {
             Client.this.rating = rating;
             return this;
         }
 
-        public Builder addStatus(ClientStatus status){
+        public Builder addStatus(ClientStatus status) {
             Client.this.status = status;
             return this;
         }
 
-        public Builder addBonus(int bonus){
+        public Builder addBonus(int bonus) {
             Client.this.bonusPercent = bonus;
             return this;
         }
 
-        public Builder addCountRide(int count){
+        public Builder addCountRide(int count) {
             Client.this.countRide = count;
             return this;
         }
 
-        public Builder addId(long id){
+        public Builder addId(long id) {
             Client.this.setId(id);
             return this;
         }
 
-        public Builder addLogin(String login){
+        public Builder addLogin(String login) {
             Client.this.setLogin(login);
             return this;
         }
 
-        public Builder addPassword(String password){
+        public Builder addPassword(String password) {
             Client.this.setPassword(password);
             return this;
         }
 
-        public Builder addRoles(List<UserRole> roleList){
+        public Builder addRoles(List<UserRole> roleList) {
             Client.this.setRoles(roleList);
             return this;
         }
 
-        public Client build(){
+        public Client build() {
             return Client.this;
         }
 

@@ -6,7 +6,8 @@ public class LoginValidator implements Validator<String> {
 
     public static final LoginValidator LOGIN_VALIDATOR = new LoginValidator();
 
-    private LoginValidator(){}
+    private LoginValidator() {
+    }
 
     private final String regex = "^[A-Za-z]\\w{5,29}$";
 

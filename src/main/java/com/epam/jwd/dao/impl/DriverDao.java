@@ -19,7 +19,7 @@ import java.util.Optional;
 public class DriverDao implements AbstractDao<Long, Driver> {
     public static final DriverDao DRIVER_DAO = new DriverDao();
 
-    private DriverDao(){
+    private DriverDao() {
     }
 
     private final ConnectionPool connectionPool = ConnectionPool.CONNECTION_POOL;
@@ -29,7 +29,7 @@ public class DriverDao implements AbstractDao<Long, Driver> {
             "from app_driver join driver_status on driver_status.id = app_driver.status_id " +
             "join app_user on app_user.id = app_driver.id";
     private final String SQL_FIND_DRIVER_BY_ID = SQL_FIND_ALL_DRIVERS + " where app_driver.id = ?";
-    private final String SQL_FIND_DRIVER_BY_LOGIN = SQL_FIND_ALL_DRIVERS+" where login=?";
+    private final String SQL_FIND_DRIVER_BY_LOGIN = SQL_FIND_ALL_DRIVERS + " where login=?";
     private final String SQL_ADD_DRIVER = "insert into app_driver(id, name, phone_number, email, rating, status_id) values(?,?,?,?,?,?);";
     private final String SQL_UPDATE_DRIVER = "update app_driver set name=?, phone_number = ?, rating = ?, email = ?, status_id=?  where id=?";
     private final String SQL_UPDATE_DRIVER_STATUS = "update app_driver set status_id = ? where id = ?";
@@ -46,19 +46,19 @@ public class DriverDao implements AbstractDao<Long, Driver> {
                 drivers.add(createEntity(resultSet));
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
         return drivers;
     }
 
 
     public void updatePhoneNumber(Long id, String newPhoneNumber) throws DaoException {
-        try(Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_PHONE_NUMBER) ){
+        try (Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_PHONE_NUMBER)) {
             preparedStatement.setString(1, newPhoneNumber);
             preparedStatement.setLong(2, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
     }
 
@@ -68,72 +68,72 @@ public class DriverDao implements AbstractDao<Long, Driver> {
         try (Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_DRIVER_BY_ID)) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 driver = createEntity(resultSet);
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
         return Optional.ofNullable(driver);
     }
 
 
     public boolean updateStatus(String login, DriverStatus status) throws DaoException {
-        try(Connection connection = connectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_DRIVER_STATUS)){
+        try (Connection connection = connectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_DRIVER_STATUS)) {
             Optional<Driver> driver = findByLogin(login);
-            if(driver.isPresent()){
-                statement.setInt(1, status.ordinal()+1);
+            if (driver.isPresent()) {
+                statement.setInt(1, status.ordinal() + 1);
                 statement.setLong(2, driver.get().getId());
-                return (statement.executeUpdate()>0);
+                return (statement.executeUpdate() > 0);
             }
-            return false;
-        }catch (SQLException e){
-            throw new DaoException(e);
+        } catch (SQLException e) {
+            throw new DaoException(e.getMessage());
         }
+        return false;
     }
 
     public boolean updateRating(String login, int rating) throws DaoException {
-        try(Connection connection = connectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_DRIVER_RATING)){
+        try (Connection connection = connectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_DRIVER_RATING)) {
             Optional<Driver> driver = findByLogin(login);
-            if(driver.isPresent()){
+            if (driver.isPresent()) {
                 statement.setInt(1, rating);
                 statement.setLong(2, driver.get().getId());
-                return statement.executeUpdate()>0;
+                return statement.executeUpdate() > 0;
             }
-            return false;
-        }catch (SQLException e){
-            throw new DaoException(e);
+        } catch (SQLException e) {
+            throw new DaoException(e.getMessage());
         }
+        return false;
     }
 
 
     public Optional<Driver> findByLogin(String login) throws DaoException {
         Driver driver = null;
-        try(Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_DRIVER_BY_LOGIN)){
+        try (Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_DRIVER_BY_LOGIN)) {
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 driver = createEntity(resultSet);
             }
         } catch (SQLException | DaoException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
         return Optional.ofNullable(driver);
     }
 
 
     public boolean updateEmail(String login, String email) throws DaoException {
-        try(Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_EMAIL)){
+        try (Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_EMAIL)) {
             Optional<Driver> driver = findByLogin(login);
-            if(driver.isPresent()){
+            if (driver.isPresent()) {
                 preparedStatement.setString(1, email);
                 preparedStatement.setLong(2, driver.get().getId());
-                return (preparedStatement.executeUpdate()>0);
+                return preparedStatement.executeUpdate() > 0;
             }
-            return false;
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
+        return false;
     }
 
 
@@ -146,13 +146,13 @@ public class DriverDao implements AbstractDao<Long, Driver> {
             preparedStatement.setString(4, entity.getEmail());
             preparedStatement.setInt(5, entity.getStatus().ordinal() + 1);
             preparedStatement.setLong(6, entity.getId());
-            return (preparedStatement.executeUpdate()>0);
+            return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
     }
 
-    public Connection getConnection(){
+    public Connection getConnection() {
         return connectionPool.getConnection();
     }
 
@@ -162,12 +162,11 @@ public class DriverDao implements AbstractDao<Long, Driver> {
     }
 
     public boolean add(Driver entity, Connection connection) throws DaoException {
-        try(PreparedStatement preparedStatement = connection.prepareStatement(SQL_ADD_DRIVER)){
-            System.out.println("ADDING IN DAO : "+entity);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_ADD_DRIVER)) {
             fillPreparedStatementToAdd(entity, preparedStatement);
-            return preparedStatement.executeUpdate()>0;
-        }catch (SQLException e){
-            throw new DaoException(e);
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new DaoException(e.getMessage());
         }
     }
 
@@ -184,16 +183,13 @@ public class DriverDao implements AbstractDao<Long, Driver> {
     public boolean add(Driver entity) throws DaoException {
         try (Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_ADD_DRIVER)) {
             fillPreparedStatementToAdd(entity, preparedStatement);
-            return preparedStatement.executeUpdate()>0;
+            return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
-
     }
 
-    @Override
     public Driver createEntity(ResultSet set) throws DaoException {
-        Driver driver = null;
         try {
             long driver_id = set.getLong("id");
             String driver_name = set.getString("name");
@@ -205,12 +201,11 @@ public class DriverDao implements AbstractDao<Long, Driver> {
             String user_password = set.getString("password");
             List<UserRole> roles = UserDao.USER_DAO.findRolesByUserId(driver_id);
 
-            driver = Driver.newBuilder().addRoles(roles).addId(driver_id).addName(driver_name).addPhoneNumber(driver_phone_number)
+            return Driver.newBuilder().addRoles(roles).addId(driver_id).addName(driver_name).addPhoneNumber(driver_phone_number)
                     .addRating(rating).addStatus(driver_status).addEmail(driver_email).addLogin(user_login).addPassword(user_password).build();
 
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
-        return driver;
     }
 }

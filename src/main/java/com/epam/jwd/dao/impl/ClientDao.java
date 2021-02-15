@@ -2,7 +2,10 @@ package com.epam.jwd.dao.impl;
 
 import com.epam.jwd.dao.AbstractDao;
 import com.epam.jwd.db.ConnectionPool;
-import com.epam.jwd.domain.impl.*;
+import com.epam.jwd.domain.impl.Client;
+import com.epam.jwd.domain.impl.ClientStatus;
+import com.epam.jwd.domain.impl.Rating;
+import com.epam.jwd.domain.impl.UserRole;
 import com.epam.jwd.exception.DaoException;
 
 import java.sql.Connection;
@@ -28,12 +31,11 @@ public class ClientDao implements AbstractDao<Long, Client> {
     private final String SQL_FIND_CLIENT_BY_ID = SQL_FIND_ALL_CLIENTS + " where app_client.id=?";
     private final String SQL_UPDATE_CLIENT = "update app_client set name = ?, phone_number = ?,rating = ?, email = ?, status_id = ?, bonus_percent=?, count_ride = ?  where client_id=?";
     private final String SQL_UPDATE_EMAIL = "update app_client set email = ? where app_user.login=?";
-    private final String SQL_FIND_CLIENT_BY_LOGIN= SQL_FIND_ALL_CLIENTS+" where app_user.login = ?";
+    private final String SQL_FIND_CLIENT_BY_LOGIN = SQL_FIND_ALL_CLIENTS + " where app_user.login = ?";
     private final String SQL_UPDATE_PHONE_NUMBER = "update app_client set phone_number = ? where id = ?";
     private final String SQL_UPDATE_CLIENT_RATING = "update app_client set rating = ? where id = ?";
     private final String SQL_UPDATE_CLIENT_STATUS = "update app_client set status_id = ? where app_client.id = ? ";
     private final String SQL_ADD_CLIENT = "insert into app_client(id, name, phone_number, email, rating, status_id, bonus_percent, count_ride) values(?,?,?,?,?,?,?,?);";
-
 
 
     @Override
@@ -45,46 +47,44 @@ public class ClientDao implements AbstractDao<Long, Client> {
                 clients.add(createEntity(resultSet));
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
         return clients;
     }
 
     public boolean updateRating(String login, int rating) throws DaoException {
-        try(Connection connection = connectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_CLIENT_RATING)){
+        try (Connection connection = connectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_CLIENT_RATING)) {
             Optional<Client> client = findByLogin(login);
-            if(client.isPresent()){
+            if (client.isPresent()) {
                 statement.setInt(1, rating);
                 statement.setLong(2, client.get().getId());
-                return statement.executeUpdate()>0;
+                return statement.executeUpdate() > 0;
             }
-            return false;
-        }catch (SQLException e){
-            throw new DaoException(e);
+        } catch (SQLException e) {
+            throw new DaoException(e.getMessage());
         }
+        return false;
     }
 
     public void updatePhoneNumber(Long id, String phoneNumber) throws DaoException {
-        try(Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_PHONE_NUMBER)){
+        try (Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_PHONE_NUMBER)) {
             preparedStatement.setString(1, phoneNumber);
             preparedStatement.setLong(2, id);
             preparedStatement.executeUpdate();
-        }catch (SQLException e){
-            throw new DaoException(e);
+        } catch (SQLException e) {
+            throw new DaoException(e.getMessage());
         }
     }
 
 
     public boolean updateEmail(String login, String email) throws DaoException {
-        try(Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_EMAIL)){
+        try (Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_EMAIL)) {
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, login);
-            if(preparedStatement.executeUpdate()>0)
-                return true;
-        }catch (SQLException e){
-            throw new DaoException(e);
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new DaoException(e.getMessage());
         }
-        return false;
     }
 
     @Override
@@ -93,11 +93,11 @@ public class ClientDao implements AbstractDao<Long, Client> {
         try (Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_CLIENT_BY_ID)) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 client = createEntity(resultSet);
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
         return Optional.ofNullable(client);
     }
@@ -105,7 +105,7 @@ public class ClientDao implements AbstractDao<Long, Client> {
     @Override
     public boolean update(Client entity) throws DaoException {
         try (Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_CLIENT)) {
-            //set name = ?, phone_number = ?,rating = ?, email = ?, status_id = ?, bonus_percent=?, count_ride = ?
+
             preparedStatement.setString(1, entity.getName());
             preparedStatement.setString(2, entity.getPhoneNumber());
             preparedStatement.setInt(3, entity.getRating().ordinal() + 1);
@@ -114,10 +114,10 @@ public class ClientDao implements AbstractDao<Long, Client> {
             preparedStatement.setInt(6, entity.getBonusPercent());
             preparedStatement.setInt(7, entity.getCountRide());
             preparedStatement.setLong(8, entity.getId());
-            return preparedStatement.executeUpdate()>0;
+            return preparedStatement.executeUpdate() > 0;
 
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
     }
 
@@ -129,42 +129,42 @@ public class ClientDao implements AbstractDao<Long, Client> {
 
     public Optional<Client> findByLogin(String login) throws DaoException {
         Client client = null;
-        try(Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_CLIENT_BY_LOGIN)){
+        try (Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_CLIENT_BY_LOGIN)) {
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 client = createEntity(resultSet);
             }
         } catch (SQLException | DaoException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
         return Optional.ofNullable(client);
     }
 
     public boolean updateStatus(String login, ClientStatus clientStatus) throws DaoException {
-        try(Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_CLIENT_STATUS)){
+        try (Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_CLIENT_STATUS)) {
             Optional<Client> client = findByLogin(login);
-            if(client.isPresent()) {
+            if (client.isPresent()) {
                 preparedStatement.setInt(1, clientStatus.ordinal() + 1);
                 preparedStatement.setLong(2, client.get().getId());
                 return (preparedStatement.executeUpdate() > 0);
             }
-            return false;
         } catch (SQLException | DaoException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
+        return false;
     }
 
-    public Connection getConnection(){
+    public Connection getConnection() {
         return connectionPool.getConnection();
     }
 
     public boolean add(Client entity, Connection connection) throws DaoException {
-        try(PreparedStatement preparedStatement = connection.prepareStatement(SQL_ADD_CLIENT)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_ADD_CLIENT)) {
             fillPreparedStatementToAdd(entity, preparedStatement);
-            return preparedStatement.executeUpdate()>0;
-        }catch (SQLException e){
-            throw new DaoException(e);
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new DaoException(e.getMessage());
         }
     }
 
@@ -183,15 +183,13 @@ public class ClientDao implements AbstractDao<Long, Client> {
     public boolean add(Client entity) throws DaoException {
         try (Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_ADD_CLIENT)) {
             fillPreparedStatementToAdd(entity, preparedStatement);
-            return (preparedStatement.executeUpdate()>0);
+            return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
     }
 
-    @Override
     public Client createEntity(ResultSet resultSet) throws DaoException {
-        Client client = null;
         try {
             long client_id = resultSet.getLong("id");
             String user_login = resultSet.getString("app_user.login");
@@ -204,12 +202,11 @@ public class ClientDao implements AbstractDao<Long, Client> {
             int client_bonus_percent = resultSet.getInt("bonus_percent");
             int client_count_ride = resultSet.getInt("count_ride");
             List<UserRole> roles = UserDao.USER_DAO.findRolesByUserId(client_id);
-            client = Client.newBuilder().addRoles(roles).addId(client_id).addLogin(user_login).addPassword(user_password).addName(client_name)
+            return Client.newBuilder().addRoles(roles).addId(client_id).addLogin(user_login).addPassword(user_password).addName(client_name)
                     .addEmail(email).addPhoneNumber(client_phone_number).addRating(client_rating).addStatus(client_status)
                     .addBonus(client_bonus_percent).addCountRide(client_count_ride).build();
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
-        return client;
     }
 }

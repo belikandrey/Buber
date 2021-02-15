@@ -7,7 +7,8 @@ public class CardNumberValidator implements Validator<String> {
 
     public static final CardNumberValidator CARD_NUMBER_VALIDATOR = new CardNumberValidator();
 
-    private CardNumberValidator(){}
+    private CardNumberValidator() {
+    }
 
     private final String regex = "^(?:(?<visa>4[0-9]{12}(?:[0-9]{3})?)|" +
             "(?<mastercard>5[1-5][0-9]{14})|" +

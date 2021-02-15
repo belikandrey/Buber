@@ -6,12 +6,13 @@ import com.epam.jwd.factory.AbstractFactory;
 
 public class LocationFactory implements AbstractFactory<Location> {
 
-    private LocationFactory(){}
+    private LocationFactory() {
+    }
 
     private static LocationFactory locationFactory;
 
-    public static LocationFactory getInstance(){
-        if(locationFactory==null){
+    public static LocationFactory getInstance() {
+        if (locationFactory == null) {
             locationFactory = new LocationFactory();
         }
         return locationFactory;
@@ -19,13 +20,13 @@ public class LocationFactory implements AbstractFactory<Location> {
 
     @Override
     public Location create(Object... args) throws FactoryException {
-        switch (args.length){
+        switch (args.length) {
             case 4:
                 return new Location((long) args[0], (double) args[1], (double) args[2], (String) args[3]);
             case 3:
                 return new Location((double) args[0], (double) args[1], (String) args[2]);
             default:
-                throw new FactoryException("Location factory : Illegal arguments length : "+args.length);
+                throw new FactoryException("Location factory : Illegal arguments length : " + args.length);
         }
     }
 }

@@ -2,10 +2,9 @@ package com.epam.jwd.dao.impl;
 
 import com.epam.jwd.dao.AbstractDao;
 import com.epam.jwd.db.ConnectionPool;
-import com.epam.jwd.domain.impl.*;
 import com.epam.jwd.domain.impl.Driver;
+import com.epam.jwd.domain.impl.*;
 import com.epam.jwd.exception.DaoException;
-import com.epam.jwd.exception.ServiceException;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -16,7 +15,8 @@ import java.util.Optional;
 public class RideDAO implements AbstractDao<Long, Ride> {
     public static final RideDAO RIDE_DAO = new RideDAO();
 
-    private RideDAO(){}
+    private RideDAO() {
+    }
 
     private final ConnectionPool connectionPool = ConnectionPool.CONNECTION_POOL;
 
@@ -33,7 +33,7 @@ public class RideDAO implements AbstractDao<Long, Ride> {
     private final String SQL_UPDATE_RIDE = "update ride set client_id=?, driver_id = ?, start_location_id = ?, end_location_id=?, start_date=?, end_date = ?, client_mark = ?, driver_mark = ?, distance=?  where id=?";
     private final String SQL_UPDATE_END_DATE = "update ride set end_date = ? where id = ?";
     private final String SQL_SET_DRIVER_ID = "update ride set driver_id = ? where id = ?";
-    private final String SQL_FIND_RIDE_BY_CLIENT_ID_START_LOCATION_ID = SQL_FIND_ALL_RIDES+" where client_id = ? and start_location_id = ?";
+    private final String SQL_FIND_RIDE_BY_CLIENT_ID_START_LOCATION_ID = SQL_FIND_ALL_RIDES + " where client_id = ? and start_location_id = ?";
     private final String SQL_UPDATE_DRIVER_MARK = "update ride set driver_mark=? where id = ?";
 
     @Override
@@ -45,44 +45,44 @@ public class RideDAO implements AbstractDao<Long, Ride> {
                 rides.add(createEntity(resultSet));
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
         return rides;
     }
 
 
     public void updateDriverMark(Long rideId, int newMark) throws DaoException {
-        try(Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_DRIVER_MARK)){
+        try (Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_DRIVER_MARK)) {
             preparedStatement.setInt(1, newMark);
             preparedStatement.setLong(2, rideId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
     }
 
     public void updateEndDate(Long rideId, LocalDateTime endTime) throws DaoException {
-        try(Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_END_DATE)){
+        try (Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_END_DATE)) {
             Timestamp timestamp = Timestamp.valueOf(endTime);
             preparedStatement.setTimestamp(1, timestamp);
             preparedStatement.setLong(2, rideId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
     }
 
     public Optional<Ride> findRideByClientIdAndStartLocationId(Long client_id, Long location_id) throws DaoException {
         Ride ride = null;
-        try(Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_RIDE_BY_CLIENT_ID_START_LOCATION_ID)){
+        try (Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_RIDE_BY_CLIENT_ID_START_LOCATION_ID)) {
             preparedStatement.setLong(1, client_id);
             preparedStatement.setLong(2, location_id);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 ride = createEntity(resultSet);
             }
         } catch (SQLException | DaoException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
         return Optional.ofNullable(ride);
     }
@@ -93,11 +93,11 @@ public class RideDAO implements AbstractDao<Long, Ride> {
         try (Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_RIDE_BY_ID)) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()) {
+            if (resultSet.next()) {
                 ride = createEntity(resultSet);
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
         return Optional.ofNullable(ride);
     }
@@ -119,18 +119,18 @@ public class RideDAO implements AbstractDao<Long, Ride> {
                 rides.add(createEntity(resultSet));
             }
         } catch (SQLException | DaoException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
         return rides;
     }
 
     public boolean setDriver(Driver driver, Ride ride) throws DaoException {
-        try(Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_SET_DRIVER_ID)){
+        try (Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_SET_DRIVER_ID)) {
             preparedStatement.setLong(1, driver.getId());
             preparedStatement.setLong(2, ride.getId());
-            return (preparedStatement.executeUpdate()>0);
+            return (preparedStatement.executeUpdate() > 0);
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
     }
 
@@ -140,9 +140,9 @@ public class RideDAO implements AbstractDao<Long, Ride> {
         try (Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_RIDE)) {
             fillPreparedStatement(entity, preparedStatement);
             preparedStatement.setLong(10, entity.getId());
-            return (preparedStatement.executeUpdate()>0);
+            return (preparedStatement.executeUpdate() > 0);
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
     }
 
@@ -160,16 +160,16 @@ public class RideDAO implements AbstractDao<Long, Ride> {
     }
 
     public boolean addMinRide(Ride ride) throws DaoException {
-        try(Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_ADD_MIN_RIDE)){
+        try (Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_ADD_MIN_RIDE)) {
             preparedStatement.setLong(1, ride.getClient().getId());
             preparedStatement.setLong(2, LocationDao.LOCATION_DAO.findEntityByCoords(ride.getStartLocation().getLatitude(), ride.getStartLocation().getLongitude()).get().getId());
             preparedStatement.setLong(3, LocationDao.LOCATION_DAO.findEntityByCoords(ride.getEndLocation().getLatitude(), ride.getEndLocation().getLongitude()).get().getId());
             preparedStatement.setTimestamp(4, Timestamp.valueOf(ride.getStartDate()));
             preparedStatement.setDouble(5, ride.getDistance());
 
-            return preparedStatement.executeUpdate()>0;
-        }catch (SQLException | DaoException e){
-            throw new DaoException(e);
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException | DaoException e) {
+            throw new DaoException(e.getMessage());
         }
     }
 
@@ -177,9 +177,9 @@ public class RideDAO implements AbstractDao<Long, Ride> {
     public boolean remove(Ride entity) throws DaoException {
         try (Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_REMOVE_RIDE_BY_ID)) {
             preparedStatement.setLong(1, entity.getId());
-            return (preparedStatement.executeUpdate()>0);
+            return (preparedStatement.executeUpdate() > 0);
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
     }
 
@@ -187,22 +187,20 @@ public class RideDAO implements AbstractDao<Long, Ride> {
     public boolean add(Ride entity) throws DaoException {
         try (Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_ADD_RIDE)) {
             fillPreparedStatement(entity, preparedStatement);
-            return (preparedStatement.executeUpdate()>0);
+            return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
     }
 
-    @Override
     public Ride createEntity(ResultSet set) throws DaoException {
-        Ride ride = null;
         try {
             long ride_id = set.getLong("id");
             Optional<Client> rideClientOpt = ClientDao.CLIENT_DAO.findEntityById(set.getLong("client_id"));
             Optional<Driver> rideDriverOpt = DriverDao.DRIVER_DAO.findEntityById(set.getLong("driver_id"));
             Optional<Location> rideStartLocationOpt = LocationDao.LOCATION_DAO.findEntityById(set.getLong("start_location_id"));
             Optional<Location> rideEndLocationOpt = LocationDao.LOCATION_DAO.findEntityById(set.getLong("end_location_id"));
-            if(rideClientOpt.isEmpty() || rideStartLocationOpt.isEmpty() || rideEndLocationOpt.isEmpty()){
+            if (rideClientOpt.isEmpty() || rideStartLocationOpt.isEmpty() || rideEndLocationOpt.isEmpty()) {
                 throw new DaoException("Components for ride not found");
             }
             Client ride_client = rideClientOpt.get();
@@ -210,25 +208,23 @@ public class RideDAO implements AbstractDao<Long, Ride> {
             Location ride_end_location = rideEndLocationOpt.get();
             double distance = set.getDouble("distance");
             LocalDateTime ride_start_time = set.getTimestamp("start_date").toLocalDateTime();
-            if(rideDriverOpt.isEmpty()){
-                ride = Ride.newBuilder().addId(ride_id).addClient(ride_client).addDistance(distance).addStartLocation(ride_start_location)
+            if (rideDriverOpt.isEmpty()) {
+                return Ride.newBuilder().addId(ride_id).addClient(ride_client).addDistance(distance).addStartLocation(ride_start_location)
                         .addEndLocation(ride_end_location).addStartDate(ride_start_time).build();
-                return ride;
             }
             Driver ride_driver = rideDriverOpt.get();
             Timestamp end_date = set.getTimestamp("end_date");
             LocalDateTime ride_end_time = null;
-            if(end_date!=null){
+            if (end_date != null) {
                 ride_end_time = end_date.toLocalDateTime();
             }
             Rating ride_client_mark = Rating.values()[set.getInt("client_mark") - 1];
             Rating ride_driver_mark = Rating.values()[set.getInt("driver_mark") - 1];
-            ride = Ride.newBuilder().addId(ride_id).addClient(ride_client).addDriver(ride_driver).addDistance(distance).addStartLocation(ride_start_location)
+            return Ride.newBuilder().addId(ride_id).addClient(ride_client).addDriver(ride_driver).addDistance(distance).addStartLocation(ride_start_location)
                     .addEndLocation(ride_end_location).addStartDate(ride_start_time).addEndDate(ride_end_time)
                     .addClientMark(ride_client_mark).addDriverMark(ride_driver_mark).build();
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
-        return ride;
     }
 }

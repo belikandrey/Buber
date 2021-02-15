@@ -15,16 +15,18 @@ import java.util.stream.Collectors;
 
 public class AdminServiceImpl implements AdminService {
 
-    private AdminServiceImpl(){}
+    private AdminServiceImpl() {
+    }
 
     private static AdminServiceImpl adminService;
 
-    public static AdminServiceImpl getInstance(){
-        if(adminService==null){
+    public static AdminServiceImpl getInstance() {
+        if (adminService == null) {
             adminService = new AdminServiceImpl();
         }
         return adminService;
     }
+
 
     private final UserDao userDao = UserDao.USER_DAO;
     private final Validator<String> loginValidator = LoginValidator.LOGIN_VALIDATOR;
@@ -35,75 +37,41 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Optional<User> findByLogin(String login) throws ValidationException, ServiceException {
-        if(loginValidator.validate(login)) {
-            try {
-                return userDao.findByLogin(login);
-            } catch (DaoException e) {
-                throw new ServiceException("User DAO provides exception in service : "+e);
-            }
-        }
-        throw new ValidationException("Login : "+login+" is invalid");
-    }
-
-    @Override
-    public boolean removeAdmin(User user) throws ServiceException {
         try {
-            return userDao.remove(user);
+            return userDao.findByLogin(login);
         } catch (DaoException e) {
-            throw new ServiceException("User DAO provides exception in service : "+e);
+            throw new ServiceException("User DAO provides exception in service : " + e.getMessage());
         }
     }
 
     @Override
-    public boolean updateDriverStatus(String login, DriverStatus status) throws ServiceException, ValidationException {
-        if(loginValidator.validate(login)){
-            try {
-                return driverDao.updateStatus(login, status);
-            } catch (DaoException e) {
-                throw new ServiceException("Driver DAO provides exception in service : "+e);
-            }
-        }
-        throw new ValidationException("Login : "+login+" is invalid");
-    }
-
-    public boolean updateClientRating(String login, int rating) throws ServiceException {
+    public boolean updateDriverStatus(String login, DriverStatus status) throws ServiceException {
         try {
-            return clientDao.updateRating(login,rating);
+            return driverDao.updateStatus(login, status);
         } catch (DaoException e) {
-            throw new ServiceException("Client DAO provides exception in service : "+e);
-        }
-    }
-
-    public boolean updateDriverRating(String login, int rating) throws ServiceException {
-        try {
-            return driverDao.updateRating(login, rating);
-        } catch (DaoException e) {
-            throw new ServiceException("Driver DAO provides exception in service : "+e);
+            throw new ServiceException("Driver DAO provides exception in service : " + e.getMessage());
         }
     }
 
     @Override
-    public boolean updateClientStatus(String login, ClientStatus status) throws ServiceException, ValidationException {
-        if(loginValidator.validate(login)){
-            try {
-                return clientDao.updateStatus(login, status);
-            } catch (DaoException e) {
-                throw new ServiceException("Client DAO provides exception in service : "+e);
-            }
+    public boolean updateClientStatus(String login, ClientStatus status) throws ServiceException {
+        try {
+            return clientDao.updateStatus(login, status);
+        } catch (DaoException e) {
+            throw new ServiceException("Client DAO provides exception in service : " + e.getMessage());
         }
-        throw new ValidationException("Login : "+login+" is invalid");
     }
 
     @Override
     public boolean addAdmin(User user) throws ServiceException, ValidationException {
-        if(loginValidator.validate(user.getLogin())){
+        if (loginValidator.validate(user.getLogin())) {
             try {
                 return userDao.add(user);
             } catch (DaoException e) {
-                throw new ServiceException("User DAO provides exception in service : "+e);
+                throw new ServiceException("User DAO provides exception in service : " + e.getMessage());
             }
         }
-        throw new ValidationException("Login : "+user.getLogin()+" is invalid");
+        throw new ValidationException("Login : " + user.getLogin() + " is invalid");
     }
 
     @Override
@@ -111,7 +79,7 @@ public class AdminServiceImpl implements AdminService {
         try {
             return rideDAO.findAll();
         } catch (DaoException e) {
-            throw new ServiceException("Ride DAO provides exception in service : "+e);
+            throw new ServiceException("Ride DAO provides exception in service : " + e.getMessage());
         }
     }
 
@@ -120,37 +88,61 @@ public class AdminServiceImpl implements AdminService {
         try {
             return paymentDao.findAll();
         } catch (DaoException e) {
-            throw new ServiceException("Payment DAO provides exception in service : "+e);
+            throw new ServiceException("Payment DAO provides exception in service : " + e.getMessage());
         }
     }
 
     @Override
-    public boolean confirmDriver(String login) throws ServiceException, ValidationException {
-        if(loginValidator.validate(login)){
-            try {
-                return driverDao.updateStatus(login, DriverStatus.ACTIVE);
-            } catch (DaoException e) {
-                throw new ServiceException("Driver DAO provides exception in service : "+e);
-            }
+    public boolean confirmDriver(String login) throws ServiceException {
+        try {
+            return driverDao.updateStatus(login, DriverStatus.ACTIVE);
+        } catch (DaoException e) {
+            throw new ServiceException("Driver DAO provides exception in service : " + e.getMessage());
         }
-        throw new ValidationException("Login : "+login+" is invalid");
     }
 
     @Override
     public List<Driver> findAllDriversWithBadRating() throws ServiceException {
         try {
-            return driverDao.findAll().stream().filter((p)->p.getRating().ordinal()<3).collect(Collectors.toList());
+            return driverDao.findAll().stream().filter((p) -> p.getRating().ordinal() < 3).collect(Collectors.toList());
         } catch (DaoException e) {
-            throw new ServiceException("Driver DAO provides exception in service : "+e);
+            throw new ServiceException("Driver DAO provides exception in service : " + e.getMessage());
         }
     }
 
     @Override
     public List<Client> findAllClientsWithBadRating() throws ServiceException {
         try {
-            return clientDao.findAll().stream().filter((p)->p.getRating().ordinal()<3).collect(Collectors.toList());
+            return clientDao.findAll().stream().filter((p) -> p.getRating().ordinal() < 3).collect(Collectors.toList());
         } catch (DaoException e) {
-            throw new ServiceException("Client DAO provides exception in service : "+e);
+            throw new ServiceException("Client DAO provides exception in service : " + e.getMessage());
+        }
+    }
+
+    @Override
+    public boolean removeAdmin(User user) throws ServiceException {
+        try {
+            return userDao.remove(user);
+        } catch (DaoException e) {
+            throw new ServiceException("User DAO provides exception in service : " + e.getMessage());
+        }
+    }
+
+    @Override
+    public boolean updateClientRating(String login, int rating) throws ServiceException {
+        try {
+            return clientDao.updateRating(login, rating);
+        } catch (DaoException e) {
+            throw new ServiceException("Client DAO provides exception in service : " + e.getMessage());
+        }
+    }
+
+    @Override
+    public boolean updateDriverRating(String login, int rating) throws ServiceException {
+        try {
+            return driverDao.updateRating(login, rating);
+        } catch (DaoException e) {
+            throw new ServiceException("Driver DAO provides exception in service : " + e.getMessage());
         }
     }
 }

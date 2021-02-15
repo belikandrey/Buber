@@ -20,7 +20,8 @@ public class BankCardDao implements AbstractDao<Long, BankCard> {
 
     public static final BankCardDao BANK_CARD_DAO = new BankCardDao();
 
-    private BankCardDao(){}
+    private BankCardDao() {
+    }
 
     private ConnectionPool connectionPool = ConnectionPool.CONNECTION_POOL;
 
@@ -28,10 +29,8 @@ public class BankCardDao implements AbstractDao<Long, BankCard> {
     private final String SQL_FIND_CARD_BY_ID = SQL_FIND_ALL_CARDS + " where id = ?";
     private final String SQL_REMOVE_CARD_BY_ID = "delete from bank_card where id = ?";
     private final String SQL_ADD_CARD = "insert into bank_card(client_id, number, date, csc) values(?,?,?,?);";
-    private final String SQL_FIND_CARD_BY_CLIENT_ID = SQL_FIND_ALL_CARDS+" where client_id = ?";
+    private final String SQL_FIND_CARD_BY_CLIENT_ID = SQL_FIND_ALL_CARDS + " where client_id = ?";
     private final String SQL_UPDATE_CARD = "update bank_card set number=?, date = ?,csc = ?  where id=?";
-
-
 
 
     @Override
@@ -39,13 +38,12 @@ public class BankCardDao implements AbstractDao<Long, BankCard> {
         List<BankCard> bankCards = new ArrayList<>();
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_ALL_CARDS)) {
-
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 bankCards.add(createEntity(resultSet));
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
         return bankCards;
     }
@@ -58,11 +56,11 @@ public class BankCardDao implements AbstractDao<Long, BankCard> {
 
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 bankCard = createEntity(resultSet);
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
         return Optional.ofNullable(bankCard);
     }
@@ -76,9 +74,9 @@ public class BankCardDao implements AbstractDao<Long, BankCard> {
             preparedStatement.setString(2, entity.getDate());
             preparedStatement.setInt(3, entity.getCsc());
             preparedStatement.setLong(4, entity.getId());
-            return (preparedStatement.executeUpdate()>0);
+            return (preparedStatement.executeUpdate() > 0);
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
     }
 
@@ -93,7 +91,7 @@ public class BankCardDao implements AbstractDao<Long, BankCard> {
                 bankCards.add(createEntity(resultSet));
             }
         } catch (SQLException | DaoException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
         return bankCards;
     }
@@ -104,9 +102,9 @@ public class BankCardDao implements AbstractDao<Long, BankCard> {
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_REMOVE_CARD_BY_ID)) {
 
             preparedStatement.setLong(1, entity.getId());
-            return (preparedStatement.executeUpdate()>0);
+            return (preparedStatement.executeUpdate() > 0);
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
     }
 
@@ -119,15 +117,13 @@ public class BankCardDao implements AbstractDao<Long, BankCard> {
             preparedStatement.setString(2, entity.getNumber());
             preparedStatement.setString(3, entity.getDate());
             preparedStatement.setInt(4, entity.getCsc());
-            return (preparedStatement.executeUpdate()>0);
+            return (preparedStatement.executeUpdate() > 0);
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
     }
 
-    @Override
     public BankCard createEntity(ResultSet set) throws DaoException {
-        BankCard bankCard = null;
         try {
             long card_id = set.getLong("id");
             long client_id = set.getLong("client_id");
@@ -135,14 +131,13 @@ public class BankCardDao implements AbstractDao<Long, BankCard> {
             String card_date = set.getString("date");
             int card_csc = set.getInt("csc");
             Optional<Client> clientOpt = ClientDao.CLIENT_DAO.findEntityById(client_id);
-            if(clientOpt.isEmpty()){
-                throw new DaoException("Client for bank card with id : "+card_id+" not found");
+            if (clientOpt.isEmpty()) {
+                throw new DaoException("Client for bank card with id : " + card_id + " not found");
             }
             Client entityById = clientOpt.get();
-            bankCard = BankCardFactory.getInstance().create(card_id, entityById, card_number, card_date, card_csc);
+            return BankCardFactory.getInstance().create(card_id, entityById, card_number, card_date, card_csc);
         } catch (SQLException | DaoException | FactoryException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
-        return bankCard;
     }
 }

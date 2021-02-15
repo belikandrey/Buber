@@ -6,22 +6,31 @@ import com.epam.jwd.domain.impl.Client;
 import com.epam.jwd.domain.impl.Rating;
 import com.epam.jwd.domain.impl.Ride;
 import com.epam.jwd.exception.ServiceException;
+import com.epam.jwd.service.ClientService;
+import com.epam.jwd.service.DriverService;
 import com.epam.jwd.service.impl.ClientServiceImpl;
 import com.epam.jwd.service.impl.DriverServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
 public class EndRideCommand implements Command {
+    private final Logger logger = LoggerFactory.getLogger(EndRideCommand.class);
+    private final DriverService driverService = DriverServiceImpl.getInstance();
+    private final ClientService clientService = ClientServiceImpl.getInstance();
+
     @Override
     public CommandResult execute(HttpServletRequest servletRequest) {
         CommandResult commandResult = new CommandResult("driver?command=to_driver_home", CommandResult.ResponseType.REDIRECT);
-        Long rideId = Long.parseLong(servletRequest.getParameter("ride_id"));
-        Integer clientMark = Integer.parseInt(servletRequest.getParameter("clientMark"));
+        long rideId = Long.parseLong(servletRequest.getParameter("ride_id"));
+        int clientMark = Integer.parseInt(servletRequest.getParameter("clientMark"));
         try {
-            Optional<Ride> rideOptional = DriverServiceImpl.getInstance().findRideById(rideId);
+            Optional<Ride> rideOptional = driverService.findRideById(rideId);
             if(rideOptional.isEmpty()){
+                logger.error("Ride for ending not found");
                 throw new ServiceException("Ride not found");
             }
             Ride ride = rideOptional.get();
@@ -31,11 +40,11 @@ public class EndRideCommand implements Command {
             Rating clientRating = client.getRating();
             Rating newRating = newClientRating(clientRating, rideClientRating);
             ride.getClient().setRating(newRating);
-            ClientServiceImpl.getInstance().updateRating(client.getLogin(), newRating.ordinal()+1);
-            DriverServiceImpl.getInstance().updateRideEndDate(rideId, LocalDateTime.now());
-            System.out.println("GDFSMKFGDNSKFSD<MF<DS");
+            clientService.updateRating(client.getLogin(), newRating.ordinal()+1);
+            driverService.updateRideEndDate(rideId, LocalDateTime.now());
         } catch (ServiceException e) {
-            e.printStackTrace();
+            logger.error("Ride not ended : "+e.getMessage());
+            commandResult.addAttribute("message", "Something was wrong");
         }
         return commandResult;
     }

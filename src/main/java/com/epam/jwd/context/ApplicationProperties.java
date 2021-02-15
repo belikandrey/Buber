@@ -1,12 +1,14 @@
 package com.epam.jwd.context;
 
 
+
 import java.util.ResourceBundle;
 
 public class ApplicationProperties {
     public static final ApplicationProperties APPLICATION_PROPERTIES = new ApplicationProperties();
 
-    private ApplicationProperties(){}
+    private ApplicationProperties() {
+    }
 
     private String dbUrl;
     private String dbLogin;
@@ -18,7 +20,7 @@ public class ApplicationProperties {
     private String smsToken;
     private String number;
 
-    public static void init(ResourceBundle property){
+    public static void init(ResourceBundle property) {
         APPLICATION_PROPERTIES.dbUrl = property.getString("db_url");
         APPLICATION_PROPERTIES.dbLogin = property.getString("db_login");
         APPLICATION_PROPERTIES.dbPassword = property.getString("db_password");

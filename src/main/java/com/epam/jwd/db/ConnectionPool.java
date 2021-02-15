@@ -25,7 +25,7 @@ public class ConnectionPool {
 
     public Connection getConnection() {
         Connection connection = null;
-        if(availableConnections.size()+usedConnections.size()>=maxSize){
+        if (availableConnections.size() + usedConnections.size() >= maxSize) {
             try {
                 Thread.sleep(20);
             } catch (InterruptedException e) {
@@ -33,7 +33,7 @@ public class ConnectionPool {
             }
         }
         if (availableConnections.isEmpty()) {
-            for(int i = 0 ; i < 5; i ++){
+            for (int i = 0; i < 5; i++) {
                 addConnection();
             }
         }

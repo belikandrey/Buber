@@ -56,7 +56,7 @@
     <div class="container">
         <div class="row justify-content-center"  style="padding-left: 30%; margin-bottom: 5%;">
             <div class="col-8">
-                <a href="driver?command=to_available_rides"><button style="width: 45%; height: 130%;" type="button" class="btn btn-secondary">Available rides</button></a>
+                <a href="driver?command=to_available_rides"><button style="width: 45%; height: 130%;" type="button" class="btn btn-secondary"><fmt:message key="availableRides"/> </button></a>
             </div>
         </div>
     </div>

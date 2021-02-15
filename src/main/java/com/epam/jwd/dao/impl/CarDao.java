@@ -19,7 +19,8 @@ import java.util.Optional;
 public class CarDao implements AbstractDao<Long, Car> {
     public static final CarDao CAR_DAO = new CarDao();
 
-    private CarDao(){}
+    private CarDao() {
+    }
 
     private final ConnectionPool connectionPool = ConnectionPool.CONNECTION_POOL;
 
@@ -27,10 +28,8 @@ public class CarDao implements AbstractDao<Long, Car> {
     private final String SQL_FIND_CAR_BY_ID = SQL_FIND_ALL_CARS + " where id = ?";
     private final String SQL_REMOVE_CAR_BY_ID = "delete from car where id = ?";
     private final String SQL_ADD_CAR = "insert into car(number,driver_id, brand, model, color) values(?,?,?,?,?)";
-    private final String SQL_FIND_BY_DRIVER_ID = SQL_FIND_ALL_CARS+" where driver_id = ?";
+    private final String SQL_FIND_BY_DRIVER_ID = SQL_FIND_ALL_CARS + " where driver_id = ?";
     private final String SQL_UPDATE_BY_ID = "update car set number=?, brand = ?,model = ?, color=?  where id=?";
-
-
 
 
     @Override
@@ -44,7 +43,7 @@ public class CarDao implements AbstractDao<Long, Car> {
                 cars.add(createEntity(resultSet));
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
         return cars;
     }
@@ -57,11 +56,11 @@ public class CarDao implements AbstractDao<Long, Car> {
 
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()) {
+            if (resultSet.next()) {
                 car = createEntity(resultSet);
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
         return Optional.ofNullable(car);
     }
@@ -76,9 +75,9 @@ public class CarDao implements AbstractDao<Long, Car> {
             preparedStatement.setString(3, entity.getModel());
             preparedStatement.setString(4, entity.getColor());
             preparedStatement.setLong(5, entity.getId());
-            return (preparedStatement.executeUpdate()>0);
+            return (preparedStatement.executeUpdate() > 0);
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
     }
 
@@ -86,27 +85,27 @@ public class CarDao implements AbstractDao<Long, Car> {
     public boolean remove(Car entity) throws DaoException {
         try (Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_REMOVE_CAR_BY_ID)) {
             preparedStatement.setLong(1, entity.getId());
-            return preparedStatement.executeUpdate()>0;
+            return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
     }
 
 
     public List<Car> findByDriverId(Long id) throws DaoException {
         List<Car> cars = new ArrayList<>();
-        try(Connection connection = connectionPool.getConnection();
-            PreparedStatement statement = connection.prepareStatement(SQL_FIND_BY_DRIVER_ID)){
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_FIND_BY_DRIVER_ID)) {
 
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 Car entity = createEntity(resultSet);
                 cars.add(entity);
             }
 
         } catch (SQLException | DaoException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
         return cars;
     }
@@ -119,15 +118,13 @@ public class CarDao implements AbstractDao<Long, Car> {
             preparedStatement.setString(3, entity.getBrand());
             preparedStatement.setString(4, entity.getModel());
             preparedStatement.setString(5, entity.getColor());
-            return (preparedStatement.executeUpdate()>0);
+            return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
     }
 
-    @Override
     public Car createEntity(ResultSet set) throws DaoException {
-        Car car = null;
         try {
             long car_id = set.getLong("id");
             long driver_id = set.getLong("driver_id");
@@ -136,14 +133,13 @@ public class CarDao implements AbstractDao<Long, Car> {
             String car_model = set.getString("model");
             String car_color = set.getString("color");
             Optional<Driver> driverOpt = DriverDao.DRIVER_DAO.findEntityById(driver_id);
-            if(driverOpt.isEmpty()){
-                throw new DaoException("Driver for car with id : "+car_id+" not found");
+            if (driverOpt.isEmpty()) {
+                throw new DaoException("Driver for car with id : " + car_id + " not found");
             }
             Driver entityById = driverOpt.get();
-            car = CarFactory.getInstance().create(car_id,entityById, car_number, car_brand, car_model,car_color );
+            return CarFactory.getInstance().create(car_id, entityById, car_number, car_brand, car_model, car_color);
         } catch (SQLException | FactoryException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
-        return car;
     }
 }

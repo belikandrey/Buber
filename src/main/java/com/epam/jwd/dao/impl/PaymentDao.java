@@ -20,7 +20,8 @@ import java.util.Optional;
 public class PaymentDao implements AbstractDao<Long, Payment> {
     public static final PaymentDao PAYMENT_DAO = new PaymentDao();
 
-    private PaymentDao(){}
+    private PaymentDao() {
+    }
 
     private final ConnectionPool connectionPool = ConnectionPool.CONNECTION_POOL;
 
@@ -41,7 +42,7 @@ public class PaymentDao implements AbstractDao<Long, Payment> {
                 payments.add(createEntity(resultSet));
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
         return payments;
     }
@@ -54,11 +55,11 @@ public class PaymentDao implements AbstractDao<Long, Payment> {
 
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 payment = createEntity(resultSet);
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
         return Optional.ofNullable(payment);
     }
@@ -71,9 +72,9 @@ public class PaymentDao implements AbstractDao<Long, Payment> {
             preparedStatement.setDouble(3, entity.getPrice());
             preparedStatement.setLong(4, entity.getTransactionNumber());
             preparedStatement.setLong(5, entity.getId());
-            return (preparedStatement.executeUpdate()>0);
+            return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
     }
 
@@ -85,11 +86,11 @@ public class PaymentDao implements AbstractDao<Long, Payment> {
 
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 payment = createEntity(resultSet);
             }
         } catch (SQLException | DaoException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
         return Optional.ofNullable(payment);
     }
@@ -98,44 +99,40 @@ public class PaymentDao implements AbstractDao<Long, Payment> {
     public boolean remove(Payment entity) throws DaoException {
         try (Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_REMOVE_PAYMENT_BY_ID)) {
             preparedStatement.setLong(1, entity.getId());
-            return (preparedStatement.executeUpdate()>0);
+            return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
     }
 
     @Override
     public boolean add(Payment entity) throws DaoException {
         try (Connection connection = connectionPool.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_ADD_PAYMENT)) {
-            System.out.println("CONNECTION AC : "+connection.getAutoCommit());
             preparedStatement.setLong(1, entity.getRide().getId());
-            preparedStatement.setLong(2, entity.getPaymentType().ordinal()+1);
+            preparedStatement.setLong(2, entity.getPaymentType().ordinal() + 1);
             preparedStatement.setDouble(3, entity.getPrice());
             preparedStatement.setLong(4, entity.getTransactionNumber());
-            return (preparedStatement.executeUpdate()>0);
+            return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
     }
 
-    @Override
     public Payment createEntity(ResultSet set) throws DaoException {
-        Payment payment = null;
         try {
             long payment_id = set.getLong("id");
             long ride_id = set.getLong("ride_id");
             Optional<Ride> rideOpt = RideDAO.RIDE_DAO.findEntityById(ride_id);
-            if(rideOpt.isEmpty()){
-                throw new DaoException("Ride for payment with id : "+payment_id+" not found");
+            if (rideOpt.isEmpty()) {
+                throw new DaoException("Ride for payment with id : " + payment_id + " not found");
             }
             Ride ride = rideOpt.get();
             PaymentType payment_type = PaymentType.valueOf(set.getString("payment_type.name"));
             double payment_price = set.getDouble("price");
             int payment_transaction_number = set.getInt("transaction_number");
-            payment = PaymentFactory.getInstance().create(payment_id,ride, payment_type, payment_price, payment_transaction_number);
+            return PaymentFactory.getInstance().create(payment_id, ride, payment_type, payment_price, payment_transaction_number);
         } catch (SQLException | FactoryException e) {
-            throw new DaoException(e);
+            throw new DaoException(e.getMessage());
         }
-        return payment;
     }
 }

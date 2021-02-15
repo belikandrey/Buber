@@ -54,8 +54,7 @@ public enum CommandType {
     UPDATE_CLIENT_STATUS(new UpdateClientStatusCommand()),
     UPDATE_CLIENT_RATING(new UpdateClientRatingCommand()),
     UPDATE_DRIVER_STATUS(new UpdateDriverStatusCommand()),
-    UPDATE_DRIVER_RATING(new UpdateDriverRatingCommand())
-    ;
+    UPDATE_DRIVER_RATING(new UpdateDriverRatingCommand());
 
     private Command command;
 

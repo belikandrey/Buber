@@ -28,7 +28,7 @@ public class Payment extends Entity {
         this.transactionNumber = transactionNumber;
     }
 
-    public Payment(Ride ride, double price){
+    public Payment(Ride ride, double price) {
         this.ride = ride;
         this.price = price;
     }

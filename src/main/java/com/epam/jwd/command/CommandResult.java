@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CommandResult {
-    public enum ResponseType{
+    public enum ResponseType {
         FORWARD,
         REDIRECT
     }
@@ -40,7 +40,7 @@ public class CommandResult {
         return attributes;
     }
 
-    public void addAttribute(String name , Object attribute){
+    public void addAttribute(String name, Object attribute) {
         attributes.put(name, attribute);
     }
 }

@@ -9,12 +9,13 @@ import java.util.List;
 
 public class UserFactory implements AbstractFactory<User> {
 
-    private UserFactory(){}
+    private UserFactory() {
+    }
 
     private static UserFactory userFactory;
 
-    public static UserFactory getInstance(){
-        if(userFactory==null){
+    public static UserFactory getInstance() {
+        if (userFactory == null) {
             userFactory = new UserFactory();
         }
         return userFactory;
@@ -22,13 +23,13 @@ public class UserFactory implements AbstractFactory<User> {
 
     @Override
     public User create(Object... args) throws FactoryException {
-        switch (args.length){
+        switch (args.length) {
             case 4:
                 return new User((long) args[0], (String) args[1], (String) args[2], (List<UserRole>) args[3]);
             case 3:
-                return new User((String) args[0], (String) args[1],(List<UserRole>) args[2]);
+                return new User((String) args[0], (String) args[1], (List<UserRole>) args[2]);
             default:
-                throw new FactoryException("User factory : Illegal arguments length : "+args.length);
+                throw new FactoryException("User factory : Illegal arguments length : " + args.length);
         }
     }
 }

@@ -16,64 +16,65 @@ public class Ride extends Entity {
     private Rating driverMark;
     private double distance;
 
-    public static Builder newBuilder(){
+    public static Builder newBuilder() {
         return new Ride().new Builder();
     }
 
-    public class Builder{
-        private Builder(){}
+    public class Builder {
+        private Builder() {
+        }
 
-        public Builder addClient(Client client){
+        public Builder addClient(Client client) {
             Ride.this.client = client;
             return this;
         }
 
-        public Builder addDriver(Driver driver){
+        public Builder addDriver(Driver driver) {
             Ride.this.driver = driver;
             return this;
         }
 
-        public Builder addId(long id){
+        public Builder addId(long id) {
             Ride.this.setId(id);
             return this;
         }
 
-        public Builder addStartLocation(Location startLocation){
+        public Builder addStartLocation(Location startLocation) {
             Ride.this.startLocation = startLocation;
             return this;
         }
 
-        public Builder addEndLocation(Location endLocation){
+        public Builder addEndLocation(Location endLocation) {
             Ride.this.endLocation = endLocation;
             return this;
         }
 
-        public Builder addStartDate(LocalDateTime startDate){
+        public Builder addStartDate(LocalDateTime startDate) {
             Ride.this.startDate = startDate;
             return this;
         }
 
-        public Builder addEndDate(LocalDateTime endDate){
+        public Builder addEndDate(LocalDateTime endDate) {
             Ride.this.endDate = endDate;
             return this;
         }
 
-        public Builder addClientMark(Rating clientMark){
+        public Builder addClientMark(Rating clientMark) {
             Ride.this.clientMark = clientMark;
             return this;
         }
 
-        public Builder addDriverMark(Rating driverMark){
+        public Builder addDriverMark(Rating driverMark) {
             Ride.this.driverMark = driverMark;
             return this;
         }
 
-        public Builder addDistance(double distance){
+        public Builder addDistance(double distance) {
             Ride.this.distance = distance;
             return this;
         }
 
-        public Ride build(){
+        public Ride build() {
             return Ride.this;
         }
     }

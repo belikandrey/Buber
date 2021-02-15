@@ -6,7 +6,8 @@ public class EmailValidator implements Validator<String> {
 
     public static final EmailValidator EMAIL_VALIDATOR = new EmailValidator();
 
-    private EmailValidator(){}
+    private EmailValidator() {
+    }
 
     private org.apache.commons.validator.routines.EmailValidator commonEmailValidator = org.apache.commons.validator.routines.EmailValidator.getInstance();
 

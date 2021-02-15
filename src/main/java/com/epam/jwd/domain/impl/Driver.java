@@ -3,69 +3,71 @@ package com.epam.jwd.domain.impl;
 import java.util.List;
 import java.util.Objects;
 
-public class Driver extends User{
+public class Driver extends User {
     private String name;
     private String phoneNumber;
     private String email;
     private DriverStatus status;
     private Rating rating;
 
-    private Driver(){}
+    private Driver() {
+    }
 
-    public static Builder newBuilder(){
+    public static Builder newBuilder() {
         return new Driver().new Builder();
     }
 
-    public class Builder{
+    public class Builder {
 
-        private Builder(){}
+        private Builder() {
+        }
 
-        public Builder addName(String name){
+        public Builder addName(String name) {
             Driver.this.name = name;
             return this;
         }
 
-        public Builder addPhoneNumber(String number){
+        public Builder addPhoneNumber(String number) {
             Driver.this.phoneNumber = number;
             return this;
         }
 
-        public Builder addEmail(String email){
+        public Builder addEmail(String email) {
             Driver.this.email = email;
             return this;
         }
 
-        public Builder addRating(Rating rating){
+        public Builder addRating(Rating rating) {
             Driver.this.rating = rating;
             return this;
         }
 
-        public Builder addStatus(DriverStatus status){
+        public Builder addStatus(DriverStatus status) {
             Driver.this.status = status;
             return this;
         }
 
-        public Builder addId(long id){
+        public Builder addId(long id) {
             Driver.this.setId(id);
             return this;
         }
 
-        public Builder addLogin(String login){
+        public Builder addLogin(String login) {
             Driver.this.setLogin(login);
             return this;
         }
 
-        public Builder addPassword(String password){
+        public Builder addPassword(String password) {
             Driver.this.setPassword(password);
             return this;
         }
 
-        public Builder addRoles(List<UserRole> roleList){
+        public Builder addRoles(List<UserRole> roleList) {
             Driver.this.setRoles(roleList);
             return this;
         }
 
-        public Driver build(){
+        public Driver build() {
             return Driver.this;
         }
     }

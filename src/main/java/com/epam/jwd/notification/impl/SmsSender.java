@@ -8,17 +8,13 @@ import com.twilio.type.PhoneNumber;
 
 import java.util.Locale;
 
-/**
- *
- */
+
 public class SmsSender extends Sender {
 
     public static final SmsSender SMS_SENDER = new SmsSender();
 
-    /**
-     *
-     */
-    private SmsSender(){
+
+    private SmsSender() {
         Twilio.init(ApplicationProperties.APPLICATION_PROPERTIES.getSmsSid(), ApplicationProperties.APPLICATION_PROPERTIES.getSmsToken());
     }
 
@@ -29,7 +25,7 @@ public class SmsSender extends Sender {
         Message.creator(
                 new PhoneNumber(to),
                 new PhoneNumber(TWILIO_NUMBER),
-                title.toUpperCase(Locale.ROOT)+"\n"+messageText
+                title.toUpperCase(Locale.ROOT) + "\n" + messageText
         ).create();
     }
 }
