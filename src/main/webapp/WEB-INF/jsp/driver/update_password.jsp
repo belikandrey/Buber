@@ -33,7 +33,7 @@
                     <h2 style="padding-left: 30%;"><fmt:message key="newPassword"/> </h2>
                     <div class="mb-3">
                         <label for="password" class="form-label"><fmt:message key="password"/> </label>
-                        <input type="password" class="form-control" id="password" name="password" aria-describedby="passwordHelp">
+                        <input type="password" pattern="^[A-Za-z]\w{4,29}$" required="" class="form-control" id="password" name="password" aria-describedby="passwordHelp">
                         <div style="color: red; font-weight: 500;" id="passwordHelp" class="form-text"><fmt:message key="passwordHelp"/> </div>
                     </div>
                     <div style="margin-top: 4%;margin-left: 30%;" class="row" >

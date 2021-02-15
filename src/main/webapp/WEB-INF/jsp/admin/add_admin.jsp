@@ -31,12 +31,12 @@
             <form action="admin?command=add_admin" method="post">
                 <div class="mb-3">
                     <label for="login" class="form-label"><fmt:message key="login"/> </label>
-                    <input type="text" class="form-control" id="login" name="login" aria-describedby="loginHelp">
+                    <input type="text" pattern="^[(\w)-]{5,20}" required="" class="form-control" id="login" name="login" aria-describedby="loginHelp">
                     <div style="color: red; font-weight: 500;" id="loginHelp" class="form-text"><fmt:message key="loginHelp"/> </div>
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label"><fmt:message key="password"/> </label>
-                    <input type="password" class="form-control" name="password" id="exampleInputPassword1">
+                    <input type="password" pattern="^[A-Za-z]\w{4,29}$" required="" class="form-control" name="password" id="exampleInputPassword1">
                 </div>
                 <div class="row" >
                     <p>${message}</p>

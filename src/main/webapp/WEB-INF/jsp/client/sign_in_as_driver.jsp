@@ -33,22 +33,22 @@
                     <h2 style="padding-left: 30%;"><fmt:message key="carInfo"/> </h2>
                     <div class="mb-3">
                         <label for="car_number" class="form-label"><fmt:message key="carNumber"/> </label>
-                        <input type="text" class="form-control" id="car_number" name="car_number" aria-describedby="car_numberHelp">
+                        <input type="text" pattern="[0-9]{4} [A-Z]{2}-[1-7]{1}" required="" class="form-control" id="car_number" name="car_number" aria-describedby="car_numberHelp">
                         <div style="color: red; font-weight: 500;" id="car_numberHelp" class="form-text"><fmt:message key="carNumberHelp"/> (6666 AC-7).</div>
                     </div>
                     <div class="mb-3">
                         <label for="car_brand" class="form-label"><fmt:message key="carBrand"/> </label>
-                        <input type="text" class="form-control" id="car_brand" name="car_brand" aria-describedby="car_brandHelp">
+                        <input type="text" pattern="^[A-Za-z]{2,19}$" class="form-control" id="car_brand" name="car_brand" aria-describedby="car_brandHelp">
                         <div style="color: red; font-weight: 500;" id="car_brandHelp" class="form-text"><fmt:message key="carBrandHelp"/> (BMW, Audi, Ford, e.c.).</div>
                     </div>
                     <div class="mb-3">
                         <label for="car_model" class="form-label"><fmt:message key="carModel"/> </label>
-                        <input type="text" class="form-control" id="car_model" name="car_model" aria-describedby="car_modelHelp">
+                        <input type="text" pattern="^[A-Za-z]\w{1,29}$" class="form-control" id="car_model" name="car_model" aria-describedby="car_modelHelp">
                         <div style="color: red; font-weight: 500;" id="car_modelHelp" class="form-text"><fmt:message key="carModelHelp"/> (M5, R8, Mustang, e.c.).</div>
                     </div>
                     <div class="mb-3">
                         <label for="car_color" class="form-label"><fmt:message key="carColor"/> </label>
-                        <input type="text" class="form-control" id="car_color" name="car_color" aria-describedby="car_colorHelp">
+                        <input type="text" pattern="^[A-Za-z]{3,19}$" class="form-control" id="car_color" name="car_color" aria-describedby="car_colorHelp">
                         <div style="color: red; font-weight: 500;" id="car_colorHelp" class="form-text"><fmt:message key="carColorHelp"/> (White, Blue, Black).</div>
                     </div>
                 </div>

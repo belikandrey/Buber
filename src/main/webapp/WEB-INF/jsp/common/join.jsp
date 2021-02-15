@@ -17,12 +17,9 @@
 <head>
     <title>Buber</title>
     <link rel="shortcut icon" href="/resources/img/Buber_ico.ico"/>
-
 </head>
 <body>
 <jsp:include page="headerForJoin.jsp"/>
-
-
 
 <section class="taxi-background">
     <div class="container">
@@ -31,12 +28,13 @@
             <form action="home?command=log_in" method="post">
                 <div class="mb-3">
                     <label for="login" class="form-label"><fmt:message key="login"/> </label>
-                    <input type="text" class="form-control" id="login" name="login" aria-describedby="loginHelp">
+                    <input type="text" class="form-control login" id="login" pattern="^[(\w)-]{5,20}" required="" name="login" aria-describedby="loginHelp">
                     <div style="color: red; font-weight: 500;" id="loginHelp" class="form-text"><fmt:message key="loginHelp"/> </div>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label"><fmt:message key="password"/></label>
-                    <input type="password" class="form-control" name="password" id="exampleInputPassword1">
+                    <label for="password" class="form-label"><fmt:message key="password"/></label>
+                    <input type="password" pattern="^[A-Za-z]\w{4,29}$" required=""
+                           class="form-control" name="password" id="password">
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="role" id="flexRadioClient" checked value="client">
@@ -51,7 +49,7 @@
                     </label>
                 </div>
                 <p  style="color:red; font-weight: bold; font-size: x-large;">${message}</p>
-                <button type="submit" class="btn btn-secondary"><fmt:message key="submit"/> </button>
+                <button type="submit" id="submit" class="btn btn-secondary"><fmt:message key="submit"/> </button>
             </form>
             <div style="padding-top: 25px;"><a style="color: red;" href="home?command=to_forgot_password"><fmt:message key="forgotPassword"/></a></div>
         </div>

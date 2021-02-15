@@ -36,7 +36,7 @@
                     <h2 style="padding-left: 30%;"><fmt:message key="newPhoneNumber"/> </h2>
                     <div class="mb-3">
                         <label for="newPhoneNumber" class="form-label"><fmt:message key="phoneNumber"/> </label>
-                        <input type="text" class="form-control" id="newPhoneNumber" name="newPhoneNumber"
+                        <input type="text" required="" pattern="^\+375(17|29|33|44|25)[0-9]{7}$" class="form-control" id="newPhoneNumber" name="newPhoneNumber"
                                aria-describedby="phone_numberHelp">
                         <div style="color: red; font-weight: 500;" id="phone_numberHelp" class="form-text"><fmt:message key="phoneNumberHelp"/> (+375333274120).
                         </div>

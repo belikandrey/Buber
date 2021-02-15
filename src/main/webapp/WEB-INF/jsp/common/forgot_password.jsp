@@ -31,7 +31,7 @@
             <form action="home?command=forgot_password" method="post">
                 <div class="mb-3">
                     <label for="login" class="form-label"><fmt:message key="login"/> </label>
-                    <input type="text" class="form-control" id="login" name="login" aria-describedby="loginHelp">
+                    <input type="text" pattern="^[(\w)-]{5,20}" required="" class="form-control" id="login" name="login" aria-describedby="loginHelp">
                     <div style="color: red; font-weight: 500;" id="loginHelp" class="form-text"><fmt:message key="loginHelp"/> </div>
                 </div>
                 <button type="submit" class="btn btn-secondary"><fmt:message key="submit"/> </button>

@@ -32,12 +32,12 @@
             <form action="home?command=client_sign_in" method="post">
                 <div class="mb-3">
                     <label for="name" class="form-label"><fmt:message key="name"/> </label>
-                    <input type="text" class="form-control" id="name" name="name" aria-describedby="nameHelp">
+                    <input type="text" pattern="^[A-Za-z]{4,29}$" required="" class="form-control" id="name" name="name" aria-describedby="nameHelp">
                     <div style="color: red; font-weight: 500;" id="nameHelp" class="form-text"><fmt:message key="nameHelp"/></div>
                 </div>
                 <div class="mb-3">
                     <label for="phone" class="form-label"><fmt:message key="phoneNumber"/></label>
-                    <input type="tel" class="form-control" id="phone" name="phone" aria-describedby="phoneHelp">
+                    <input type="tel" pattern="^\+375(17|29|33|44|25)[0-9]{7}$" required="" class="form-control" id="phone" name="phone" aria-describedby="phoneHelp">
                     <div style="color: red; font-weight: 500;" id="phoneHelp" class="form-text"><fmt:message key="phoneNumberHelp"/></div>
                 </div>
                 <div class="mb-3">
@@ -47,17 +47,17 @@
                 </div>
                 <div class="mb-3">
                     <label for="login" class="form-label"><fmt:message key="login"/> </label>
-                    <input type="text" class="form-control" id="login" name="login" aria-describedby="loginHelp">
+                    <input type="text" pattern="^[(\w)-]{5,20}" required="" class="form-control" id="login" name="login" aria-describedby="loginHelp">
                     <div style="color: red; font-weight: 500;" id="loginHelp" class="form-text"><fmt:message key="loginHelp"/> </div>
                 </div>
                 <div class="mb-3">
                     <label for="password1" class="form-label"><fmt:message key="password"/> </label>
-                    <input type="password" class="form-control" name="password" id="password1" aria-disabledby="passwordHelp1">
+                    <input type="password" pattern="^[A-Za-z]\w{4,29}$" required="" class="form-control" name="password" id="password1" aria-disabledby="passwordHelp1">
                     <div style="color: red; font-weight: 500;" id="passwordHelp1" class="form-text"><fmt:message key="passwordHelp"/> </div>
                 </div>
                 <div class="mb-3">
                     <label for="password2" class="form-label"><fmt:message key="repeatPassword"/> </label>
-                    <input type="password" class="form-control" name="repeatedPassword" id="password2">
+                    <input type="password" pattern="^[A-Za-z]\w{4,29}$" required="" class="form-control" name="repeatedPassword" id="password2">
                 </div>
                 <div class="row" >
                     <p style="color:red; font-weight: bold; font-size: x-large;">${message}</p>

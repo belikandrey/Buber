@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class ClientServiceImpl implements ClientService {
 
@@ -176,7 +177,9 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public List<BankCard> findAllClientCard(String login) throws ServiceException {
         try {
-            return bankCardDao.findAll();
+            return bankCardDao.findAll().stream().
+                    filter((p)->p.getClient().getLogin().equals(login)).
+                    collect(Collectors.toList());
         } catch (DaoException e) {
             throw new ServiceException("Bank Card DAO provides exception in service : " + e.getMessage());
         }

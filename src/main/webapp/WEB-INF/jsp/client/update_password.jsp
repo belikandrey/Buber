@@ -29,13 +29,15 @@
             <div class="row">
 
                 <div style="padding-left: 25%;" class="col col-lg-9">
-                    <h2 style="padding-left: 30%;"><fmt:message key="newPassword"/> </h2>
+                    <h2 style="padding-left: 30%;"><fmt:message key="newPassword"/></h2>
                     <div class="mb-3">
                         <label for="newPassword" class="form-label"><fmt:message key="password"/> </label>
-                        <input type="password" class="form-control" id="newPassword" name="newPassword" aria-describedby="passwordHelp">
-                        <div style="color: red; font-weight: 500;" id="passwordHelp" class="form-text"><fmt:message key="passwordHelp"/> </div>
+                        <input type="password" pattern="^[A-Za-z]\w{4,29}$" required="" class="form-control" id="newPassword" name="newPassword"
+                               aria-describedby="passwordHelp">
+                        <div style="color: red; font-weight: 500;" id="passwordHelp" class="form-text"><fmt:message
+                                key="passwordHelp"/></div>
                     </div>
-                    <div style="margin-top: 4%;margin-left: 30%;" class="row" >
+                    <div style="margin-top: 4%;margin-left: 30%;" class="row">
                         <div style="" class="col-2">
                             <button style=" width: 250px; height: 75px;" type="submit" class="btn btn-secondary">
                                 <fmt:message key="submit"/>
@@ -43,12 +45,11 @@
                         </div>
                     </div>
                 </div>
+            </div>
         </form>
     </div>
 
 </section>
-
-
 
 
 <jsp:include page="../common/footer.jsp"/>
